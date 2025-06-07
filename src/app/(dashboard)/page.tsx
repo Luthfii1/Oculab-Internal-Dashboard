@@ -31,7 +31,7 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between py-2 border-b">
             <div>
               <p className="font-medium">New user registration</p>
-              <p className="text-sm text-gray-500">2 minutes ago</p>
+              <p className="text-sm text-gray-500">20 minutes ago</p>
             </div>
           </div>
           <div className="flex items-center justify-between py-2 border-b">
