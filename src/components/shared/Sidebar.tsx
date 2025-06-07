@@ -43,10 +43,12 @@ const Sidebar = () => {
   }
 
   return (
-    <aside className={`h-screen bg-white border-r-2 border-slate-200 transition-all duration-300 flex flex-col ${isCollapsed ? 'w-20' : 'w-[200px]'}`}>
-      <button 
+    <aside className={`fixed left-0 top-0 h-full bg-white border-r-2 border-slate-200 transition-all duration-300 z-30 ${isCollapsed ? 'w-20' : 'w-[200px]'}`}>
+      {/* Collapse/expand button: center Y, half outside the sidebar border */}
+      {/* <button
         onClick={() => handleCollapse(!isCollapsed)}
-        className="mt-4 mb-2 mx-auto w-6 h-12 bg-white border border-slate-200 rounded-lg flex items-center justify-center hover:bg-slate-50 transition-colors duration-200"
+        className="absolute top-1/2 -translate-y-1/2 right-[-18px] w-8 h-12 bg-white border-2 border-slate-200 rounded-lg flex items-center justify-center z-50 shadow"
+        style={{ boxShadow: '0 2px 8px 0 rgba(0,0,0,0.04)' }}
       >
         <Image
           src="/icons/chevron-left.svg"
@@ -55,8 +57,8 @@ const Sidebar = () => {
           height={16}
           className={`transition-transform duration-300 ${isCollapsed ? 'rotate-180' : ''}`}
         />
-      </button>
-      <div className="p-4 flex-1">
+      </button> */}
+      <div className="p-4 mt-16 flex-1">
         <nav className="space-y-2">
           {navItems.map((item) => {
             const isActive = pathname === item.path;
@@ -65,8 +67,8 @@ const Sidebar = () => {
                 key={item.path}
                 href={item.path}
                 className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-colors duration-200 ${
-                  isActive 
-                    ? 'bg-purple-500 text-white' 
+                  isActive
+                    ? 'bg-purple-500 text-white'
                     : 'text-slate-600 hover:bg-slate-50'
                 }`}
               >

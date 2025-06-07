@@ -44,9 +44,9 @@ const DataTableWithTitle: React.FC<DataTableWithTitleProps> = ({ title, iconAddr
       <div className="overflow-x-auto rounded-2xl shadow-sm border border-slate-200">
         <table className="min-w-full text-sm">
           <thead>
-            <tr className="border-b border-slate-200 bg-slate-50">
+            <tr className="border-b border-slate-200 bg-purple-100">
               {columns.map((col) => (
-                <th key={col.accessorKey} className="text-left py-2 px-3 text-center text-slate-500 font-medium text-xs">
+                <th key={col.accessorKey} className="text-left py-2 px-3 text-center text-slate-900 font-medium text-xs">
                   {col.header}
                 </th>
               ))}

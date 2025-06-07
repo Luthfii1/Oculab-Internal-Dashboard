@@ -5,8 +5,8 @@ import Image from 'next/image';
 
 const Header = () => {
   return (
-    <header className="fixed top-0 left-0 right-0 h-16 bg-white border-b-3 border-slate-200 z-10">
-      <div className="h-full px-6 flex items-center justify-between">
+    <header className="fixed top-0 left-0 w-full z-40 bg-white shadow-sm h-16 flex items-center px-8">
+      <div className="h-full px-6 flex items-center justify-between w-full">
         <div className="flex items-center">
           <Image
             src="/logos/oculab-sales-team-logo.png"
