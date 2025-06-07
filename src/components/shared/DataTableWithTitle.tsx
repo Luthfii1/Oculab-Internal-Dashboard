@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
-import { Search as LucideSearch, Filter as LucideFilter } from 'lucide-react';
+import { Search as LucideSearch, Filter as LucideFilter, ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight } from 'lucide-react';
 
 // Types for columns and data
 export interface Column {
@@ -16,7 +16,24 @@ interface DataTableWithTitleProps {
   data: any[];
 }
 
+const PAGE_SIZE_OPTIONS = [5, 10, 20, 50];
+
 const DataTableWithTitle: React.FC<DataTableWithTitleProps> = ({ title, iconAddress, columns, data }) => {
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+
+  const totalPages = Math.ceil(data.length / pageSize);
+  const paginatedData = data.slice((page - 1) * pageSize, page * pageSize);
+
+  const handlePageSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setPageSize(Number(e.target.value));
+    setPage(1);
+  };
+
+  const goToPage = (newPage: number) => {
+    setPage(Math.max(1, Math.min(totalPages, newPage)));
+  };
+
   return (
     <div className="bg-white">
 
@@ -53,7 +70,7 @@ const DataTableWithTitle: React.FC<DataTableWithTitleProps> = ({ title, iconAddr
             </tr>
           </thead>
           <tbody>
-            {data.map((row, idx) => (
+            {paginatedData.map((row, idx) => (
               <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50">
                 {columns.map((col) => (
                   <td key={col.accessorKey} className="py-2 px-3 text-xs text-slate-500">
@@ -64,6 +81,59 @@ const DataTableWithTitle: React.FC<DataTableWithTitleProps> = ({ title, iconAddr
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Pagination */}
+      <div className="flex items-center justify-end gap-6 mt-4 text-slate-700 text-sm">
+        <div className="flex items-center gap-2">
+          <span>Rows per page</span>
+          <select
+            className="border border-slate-200 rounded-md px-2 py-1 focus:outline-none"
+            value={pageSize}
+            onChange={handlePageSizeChange}
+          >
+            {PAGE_SIZE_OPTIONS.map((size) => (
+              <option key={size} value={size}>{size}</option>
+            ))}
+          </select>
+        </div>
+        <span>
+          Page {page} of {totalPages}
+        </span>
+        <div className="flex items-center gap-1">
+          <button
+            className="border border-slate-200 rounded-md w-8 h-8 flex items-center justify-center disabled:opacity-50"
+            onClick={() => goToPage(1)}
+            disabled={page === 1}
+            aria-label="First page"
+          >
+            <ChevronsLeft className="w-4 h-4" />
+          </button>
+          <button
+            className="border border-slate-200 rounded-md w-8 h-8 flex items-center justify-center disabled:opacity-50"
+            onClick={() => goToPage(page - 1)}
+            disabled={page === 1}
+            aria-label="Previous page"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <button
+            className="border border-slate-200 rounded-md w-8 h-8 flex items-center justify-center disabled:opacity-50"
+            onClick={() => goToPage(page + 1)}
+            disabled={page === totalPages}
+            aria-label="Next page"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+          <button
+            className="border border-slate-200 rounded-md w-8 h-8 flex items-center justify-center disabled:opacity-50"
+            onClick={() => goToPage(totalPages)}
+            disabled={page === totalPages}
+            aria-label="Last page"
+          >
+            <ChevronsRight className="w-4 h-4" />
+          </button>
+        </div>
       </div>
     </div>
   );
