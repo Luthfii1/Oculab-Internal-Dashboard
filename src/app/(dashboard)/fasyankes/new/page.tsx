@@ -1,61 +1,14 @@
 'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { ChevronLeft, UserPlus, UserCheck, RotateCcw } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
+import { ChevronLeft, UserPlus, UserCheck } from 'lucide-react';
 import { useToast } from '@/components/shared/ToastContext';
-import { ConfirmationPopup } from '@/components/shared/ConfirmationPopup';
-
-const formSchema = z.object({
-  // required   
-  nama: z.string().min(1, { message: 'Nama fasyankes harus diisi' }),
-  jenis: z.string().min(1, { message: 'Jenis fasyankes harus diisi' }),
-  izin: z.string().min(1, { message: 'Nomor SIP/STR/Izin Klinik harus diisi' }),
-  alamat: z.string().min(1, { message: 'Alamat harus diisi' }),
-  penanggungJawab: z.string().min(1, { message: 'Nama penanggung jawab harus diisi' }),
-  email: z.string().email({ message: 'Email tidak valid' }),
-  // optional
-  kode: z.string().optional(),
-});
-
-type FormSchema = z.infer<typeof formSchema>;
-
-const jenisOptions = [
-  { value: 'kategori-a', label: 'Kategori A' },
-  { value: 'kategori-b', label: 'Kategori B' },
-  { value: 'kategori-c', label: 'Kategori C' },
-  { value: 'kategori-d', label: 'Kategori D' },
-];
+import { FasyankesForm, FasyankesFormSchema } from '@/components/fasyankes/FasyankesForm';
 
 const NewFasyankesPage = () => {
-  const router = useRouter();
   const { showToast } = useToast();
-  const form = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
-    mode: 'onChange',
-    defaultValues: {
-      nama: '',
-      kode: '',
-      jenis: '',
-      izin: '',
-      alamat: '',
-      penanggungJawab: '',
-      email: '',
-    },
-  });
 
-  const [showConfirm, setShowConfirm] = useState(false);
-
-  const onSubmit = async (values: FormSchema) => {
+  const handleSubmit = async (values: FasyankesFormSchema) => {
     try {
       const response = await fetch('/api/fasyankes', {
         method: 'POST',
@@ -90,161 +43,25 @@ const NewFasyankesPage = () => {
         <h1 className="text-xl font-bold text-slate-900">Tambahkan Akun Baru Fasyankes</h1>
       </div>
 
-      {/* Form */}
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <FormField
-            control={form.control}
-            name="nama"
-            rules={{ required: true }}
-            render={({ field }: { field: any }) => (
-              <FormItem>
-                <FormLabel>Nama Fasyankes</FormLabel>
-                <FormControl>
-                  <Input {...field} placeholder="Masukkan nama fasyankes" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="kode"
-            render={({ field }: { field: any }) => (
-              <FormItem>
-                <FormLabel>Kode Fasyankes</FormLabel>
-                <FormControl>
-                  <Input {...field} placeholder="Masukkan kode fasyankes jika ada" />
-                </FormControl>
-                <div className="text-xs text-slate-500 mt-1">Masukkan kode fasyankes yang didapatkan dari dinas kesehatan</div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="jenis"
-            rules={{ required: true }}
-            render={({ field }: { field: any }) => (
-              <FormItem>
-                <FormLabel>Jenis Fasyankes</FormLabel>
-                <Select onValueChange={field.onChange} value={field.value}>
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Pilih jenis fasyankes" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {jenisOptions.map((opt) => (
-                      <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="izin"
-            rules={{ required: true }}
-            render={({ field }: { field: any }) => (
-              <FormItem>
-                <FormLabel>Nomor SIP/STR/Izin Klinik</FormLabel>
-                <FormControl>
-                  <Input {...field} placeholder="Masukkan nomor izin" />
-                </FormControl>
-                <div className="text-xs text-slate-500 mt-1">Pilih salah satu nomor izin fasyankes</div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="alamat"
-            rules={{ required: true }}
-            render={({ field }: { field: any }) => (
-              <FormItem>
-                <FormLabel>Alamat</FormLabel>
-                <FormControl>
-                  <Textarea {...field} placeholder="Masukkan alamat lengkap" rows={3} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="penanggungJawab"
-            rules={{ required: true }}
-            render={({ field }: { field: any }) => (
-              <FormItem>
-                <FormLabel>Nama Penanggung Jawab</FormLabel>
-                <FormControl>
-                  <Input {...field} placeholder="Masukkan nama penanggung jawab" />
-                </FormControl>
-                <div className="text-xs text-slate-500 mt-1">Penanggungjawab merupakan kepala laboratorium dari fasyankes yang didaftarkan</div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="email"
-            rules={{ required: true }}
-            render={({ field }: { field: any }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input {...field} type="email" placeholder="Masukkan email" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className="flex gap-3 justify-end">
-            <button
-              type="button"
-              onClick={() => form.reset()}
-              className="flex items-center gap-1 text-red-500 text-sm font-medium bg-transparent border-none p-0 m-0 hover:cursor-pointer focus:outline-none"
-            >
-              <RotateCcw className="w-4 h-4" />
-              Reset
-            </button>
-            <Button
-              type="button"
-              disabled={!form.formState.isValid}
-              className={
-                !form.formState.isValid
-                  ? 'bg-slate-50 text-slate-400 border border-slate-200 cursor-not-allowed'
-                  : 'bg-purple-500 text-white hover:bg-purple-600 hover:cursor-pointer'
-              }
-              onClick={() => setShowConfirm(true)}
-            >
-              <UserCheck className="w-4 h-4 mr-2 inline" />
-              Buat Akun
-            </Button>
-          </div>
-        </form>
-      </Form>
-
-      {showConfirm && (
-        <div className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/30">
-          <ConfirmationPopup
-            imageAddress="/images/confirmation-create-fasyankes.svg" 
-            title="Buat Akun Baru?"
-            message="Pastikan data yang Anda masukkan sudah benar"
-            confirmationText="Buat Akun"
-            confirmationIcon={<UserCheck className="w-4 h-4" />}
-            confirmationBackgroundColor="#8B5CF6"
-            onConfirm={() => {
-              setShowConfirm(false);
-              form.handleSubmit(onSubmit)();
-            }}
-            onCancel={() => setShowConfirm(false)}
-          />
-        </div>
-      )}
+      <FasyankesForm
+        onSubmit={handleSubmit}
+        submitText="Buat Akun"
+        confirmationPopupProps={{
+          imageAddress: '/images/confirmation-create-fasyankes.svg',
+          imageBackground: 'bg-gradient-to-r from-purple-200 to-purple-500',
+          title: 'Buat Akun Baru?',
+          message: 'Pastikan data yang Anda masukkan sudah benar',
+          confirmationText: 'Buat Akun',
+          confirmationIcon: <UserCheck className="w-4 h-4 text-white" />,
+          confirmationBackgroundColor: 'bg-purple-500',
+          onConfirm: () => {
+            console.log('Buat Akun');
+          },
+        }}
+        onCancel={() => {
+          console.log('Batal');
+        }}
+      />
     </div>
   );
 };
