@@ -32,9 +32,9 @@ const Sidebar = () => {
       path: '/dashboard'
     },
     {
-      name: 'Accounts',
+      name: 'Fasyankes',
       icon: '/icons/account-icon.svg',
-      path: '/accounts'
+      path: '/fasyankes'
     }
   ];
 

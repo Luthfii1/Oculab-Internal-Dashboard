@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import DataTableWithTitle, { Column } from '@/components/shared/DataTableWithTitle';
+import Link from 'next/link';
 
 const AccountsPage = () => {
   // --- Dummy Data and Example Usage ---
@@ -51,10 +52,10 @@ const AccountsPage = () => {
             <div className="text-sm text-slate-500 mt-1">Buat akun pengguna baru untuk fasyankes pengguna layanan Oculab</div>
           </div>
         </div>
-        <button className="bg-purple-500 hover:cursor-pointer hover:bg-purple-600 text-white rounded-xl px-6 py-3 font-semibold text-sm transition-colors duration-200 flex items-center gap-2">
+        <Link href="/fasyankes/new" className="bg-purple-500 hover:cursor-pointer hover:bg-purple-600 text-white rounded-xl px-6 py-3 font-semibold text-sm transition-colors duration-200 flex items-center gap-2">
           <Image src="/icons/add-account-button.svg" alt="Add Account Button" width={20} height={20} />
           <span>Tambahkan Fasyankes Baru</span>
-        </button>
+        </Link>
       </div>
 
       {/* Data Table with Title */}
