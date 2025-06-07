@@ -37,7 +37,7 @@ const AccountsPage = () => {
     <div className="p-6">
     
      {/* title with icon and text */}
-      <div className="flex items-center gap-2 min-h-[48px] mb-4">
+      <div className="flex items-center gap-2 min-h-[48px] mb-2">
         <Image src="/icons/account-icon-color.svg" alt="Account Icon" width={32} height={32} className="text-purple-500" />
         <h1 className="text-2xl font-bold mb-0">Manajemen Akun Fasyankes</h1>
       </div>

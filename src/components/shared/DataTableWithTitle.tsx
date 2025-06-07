@@ -38,7 +38,7 @@ const DataTableWithTitle: React.FC<DataTableWithTitleProps> = ({ title, iconAddr
     <div className="bg-white">
 
       {/* title with icon and text */}
-      <div className="flex items-center gap-3 mb-6">
+      <div className="flex items-center gap-3 mb-4">
         {iconAddress && (
           <Image src={iconAddress} alt={title} width={40} height={40} />
         )}
@@ -46,7 +46,7 @@ const DataTableWithTitle: React.FC<DataTableWithTitleProps> = ({ title, iconAddr
       </div>
 
       {/* search bar with button filter at the edge of the right and magnifying glass icon inside the search bar */}
-      <div className="flex items-center justify-between mb-6 gap-4">
+      <div className="flex items-center justify-between mb-4 gap-4">
         <div className="relative w-full">
           <input type="text" placeholder="Cari nama fasyankes..." className="w-full pl-4 pr-10 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm" />
           <LucideSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
@@ -63,7 +63,7 @@ const DataTableWithTitle: React.FC<DataTableWithTitleProps> = ({ title, iconAddr
           <thead>
             <tr className="border-b border-slate-200 bg-purple-100">
               {columns.map((col) => (
-                <th key={col.accessorKey} className="text-left py-2 px-3 text-center text-slate-900 font-medium text-xs">
+                <th key={col.accessorKey} className="text-left py-2 px-3 text-center font-semibold text-slate-900 text-xs">
                   {col.header}
                 </th>
               ))}

@@ -28,7 +28,7 @@ export default function DashboardLayout({
     <div className="min-h-screen bg-slate-0">
       <Sidebar />
       <Header />
-      <div className={`${mainMarginClass} pt-16 flex flex-col min-h-screen`}>
+      <div className={`${mainMarginClass} pt-8 flex flex-col min-h-screen`}>
         <main className="flex-1 px-8 py-4 overflow-auto">
           {children}
         </main>
