@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, UserPlus, UserCheck, RotateCcw } from 'lucide-react';
@@ -13,6 +13,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { useToast } from '@/components/shared/ToastContext';
+import { ConfirmationPopup } from '@/components/shared/ConfirmationPopup';
 
 const formSchema = z.object({
   // required   
@@ -51,6 +52,8 @@ const NewFasyankesPage = () => {
       email: '',
     },
   });
+
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const onSubmit = async (values: FormSchema) => {
     try {
@@ -209,13 +212,14 @@ const NewFasyankesPage = () => {
               Reset
             </button>
             <Button
-              type="submit"
+              type="button"
               disabled={!form.formState.isValid}
               className={
                 !form.formState.isValid
                   ? 'bg-slate-50 text-slate-400 border border-slate-200 cursor-not-allowed'
                   : 'bg-purple-500 text-white hover:bg-purple-600 hover:cursor-pointer'
               }
+              onClick={() => setShowConfirm(true)}
             >
               <UserCheck className="w-4 h-4 mr-2 inline" />
               Buat Akun
@@ -223,6 +227,24 @@ const NewFasyankesPage = () => {
           </div>
         </form>
       </Form>
+
+      {showConfirm && (
+        <div className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/30">
+          <ConfirmationPopup
+            imageAddress="/images/confirmation-create-fasyankes.svg" 
+            title="Buat Akun Baru?"
+            message="Pastikan data yang Anda masukkan sudah benar"
+            confirmationText="Buat Akun"
+            confirmationIcon={<UserCheck className="w-4 h-4" />}
+            confirmationBackgroundColor="#8B5CF6"
+            onConfirm={() => {
+              setShowConfirm(false);
+              form.handleSubmit(onSubmit)();
+            }}
+            onCancel={() => setShowConfirm(false)}
+          />
+        </div>
+      )}
     </div>
   );
 };
