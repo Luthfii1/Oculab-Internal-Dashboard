@@ -12,6 +12,7 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
+import { useToast } from '@/components/shared/ToastContext';
 
 const formSchema = z.object({
   // required   
@@ -36,6 +37,7 @@ const jenisOptions = [
 
 const NewFasyankesPage = () => {
   const router = useRouter();
+  const { showToast } = useToast();
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     mode: 'onChange',
@@ -51,12 +53,24 @@ const NewFasyankesPage = () => {
   });
 
   const onSubmit = async (values: FormSchema) => {
-    await fetch('/api/fasyankes', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(values),
-    });
-    router.push('/fasyankes');
+    try {
+      const response = await fetch('/api/fasyankes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create fasyankes');
+      }
+
+      showToast('Success', 'Fasyankes berhasil ditambahkan', 'success');
+      // TODO: redirect to fasyankes page
+    //   router.push('/fasyankes');
+    } catch (error) {
+      console.error('Error creating fasyankes:', error);
+      showToast('Error', 'Fasyankes gagal ditambahkan', 'error');
+    }
   };
 
   return (
