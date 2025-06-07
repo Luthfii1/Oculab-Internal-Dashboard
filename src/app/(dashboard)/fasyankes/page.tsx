@@ -24,7 +24,8 @@ const AccountsPage = () => {
   ];
   
   const data = Array.from({ length: 20 }).map((_, i) => ({
-    no: 1,
+    id: i + 1,
+    no: i + 1,
     fasyankes: 'Klinik Sehat Sentosa',
     pj: 'dr. Rina Kusuma, M.Kes',
     email: 'rinakusuma@kliniksentosa.id',

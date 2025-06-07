@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { Search as LucideSearch, Filter as LucideFilter, ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 // Types for columns and data
 export interface Column {
@@ -21,6 +22,7 @@ const PAGE_SIZE_OPTIONS = [5, 10, 20, 50];
 const DataTableWithTitle: React.FC<DataTableWithTitleProps> = ({ title, iconAddress, columns, data }) => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const router = useRouter();
 
   const totalPages = Math.ceil(data.length / pageSize);
   const paginatedData = data.slice((page - 1) * pageSize, page * pageSize);
@@ -71,7 +73,11 @@ const DataTableWithTitle: React.FC<DataTableWithTitleProps> = ({ title, iconAddr
           </thead>
           <tbody>
             {paginatedData.map((row, idx) => (
-              <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50">
+              <tr
+                key={idx}
+                className="border-b border-slate-100 hover:bg-slate-50 hover:cursor-pointer"
+                onClick={() => router.push(`/fasyankes/${row.id}`)}
+              >
                 {columns.map((col) => (
                   <td key={col.accessorKey} className="py-2 px-3 text-xs text-slate-500">
                     {col.cell ? col.cell(row) : row[col.accessorKey]}

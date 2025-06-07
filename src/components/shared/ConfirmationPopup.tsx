@@ -10,6 +10,7 @@ interface ConfirmationPopupProps {
   onConfirm: () => void;
   onCancel?: () => void;
   cancelText?: string;
+  imageBackground?: string;
 }
 
 export const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
@@ -22,11 +23,12 @@ export const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
   onConfirm,
   onCancel,
   cancelText = 'Batalkan',
+  imageBackground = 'bg-gradient-to-b from-[#A78BFA] to-[#7C3AED]', // default purple
 }) => {
   return (
-    <div className="w-[340px] rounded-2xl shadow-xl bg-white overflow-hidden flex flex-col">
+    <div className="w-[420px] rounded-2xl shadow-xl bg-white overflow-hidden flex flex-col">
       {/* Image section */}
-      <div className="flex items-center justify-center h-36 bg-gradient-to-b from-[#A78BFA] to-[#7C3AED]">
+      <div className={`flex items-center justify-center h-36 ${imageBackground}`}>
         <img src={imageAddress} alt="Popup Illustration" className="h-30 w-30 object-contain" />
       </div>
       {/* Content section */}
@@ -44,8 +46,7 @@ export const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
           <button
             type="button"
             onClick={onConfirm}
-            className="flex items-center gap-2 hover:cursor-pointer text-white font-semibold text-sm px-4 py-2 rounded-md shadow"
-            style={{ background: confirmationBackgroundColor }}
+            className={`flex items-center gap-2 hover:cursor-pointer text-white font-semibold text-sm px-4 py-2 rounded-md shadow ${confirmationBackgroundColor}`}
           >
             {confirmationIcon}
             {confirmationText}
