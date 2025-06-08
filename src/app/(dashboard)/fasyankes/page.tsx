@@ -1,11 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import DataTableWithTitle, { Column } from '@/components/shared/DataTableWithTitle';
 import Link from 'next/link';
+import { getFasyankesList } from '@/api/FasyankesApis';
 
 const AccountsPage = () => {
+  const [data, setData] = useState([]);
   // --- Dummy Data and Example Usage ---
   const columns: Column[] = [
     { header: 'No', accessorKey: 'no' },
@@ -23,17 +25,13 @@ const AccountsPage = () => {
     },
   ];
   
-  const data = Array.from({ length: 20 }).map((_, i) => ({
-    id: i + 1,
-    no: i + 1,
-    fasyankes: 'Klinik Sehat Sentosa',
-    pj: 'dr. Rina Kusuma, M.Kes',
-    email: 'rinakusuma@kliniksentosa.id',
-    jenis: 'Klinik Pratama',
-    provinsi: 'Kalimantan Selatan',
-    created: '27/12/2001',
-    updated: 'dd/mm/yyyy',
-  }));
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getFasyankesList();
+      setData(data);
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="p-6">
