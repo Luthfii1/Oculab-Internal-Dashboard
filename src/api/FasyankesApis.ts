@@ -10,7 +10,7 @@ const USING_DUMMY_DATA = process.env.NEXT_PUBLIC_USING_DUMMY_DATA && process.env
 export async function getFasyankesList() {
   try {
     if (USING_DUMMY_DATA) {
-      return getFasyankesListDummy();
+      return getFasyankesListDummy() as unknown as FasyankesModel[];
     }
     const res = await axios.get(`${BASE_URL}/api/fasyankes`);
     return res. data as FasyankesModel[];
@@ -22,10 +22,10 @@ export async function getFasyankesList() {
 export async function getFasyankesDetail(id: string) {
   try {
     if (USING_DUMMY_DATA) {
-      return getFasyankesDetailDummy(id);
+      return getFasyankesDetailDummy(id) as unknown as FasyankesModel;
     }
     const res = await axios.get(`${BASE_URL}/api/fasyankes/${id}`);
-    return res.data as FasyankesFormSchema;
+    return res.data as FasyankesModel;
   } catch (error: any) {
     throw new Error(error?.response?.data?.message || 'Failed to fetch fasyankes detail');
   }

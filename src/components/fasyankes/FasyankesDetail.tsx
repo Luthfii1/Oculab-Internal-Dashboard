@@ -4,9 +4,9 @@ import { ConfirmationPopup } from '@/components/shared/ConfirmationPopup';
 import { ChevronLeft, Hospital, Trash2, FilePenLine } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
-import { FasyankesFormSchema } from './FasyankesForm';
+import { FasyankesModel } from '@/model/FasyankesModel';
 
-export default function FasyankesDetail({ fasyankesData }: { fasyankesData: FasyankesFormSchema }) {
+export default function FasyankesDetail({ fasyankesData }: { fasyankesData: FasyankesModel }) {
   const [showConfirm, setShowConfirm] = useState(false);
   return (
     <div className="W-full mt-8 mx-auto p-0">
@@ -23,7 +23,7 @@ export default function FasyankesDetail({ fasyankesData }: { fasyankesData: Fasy
           <div className="text-sm text-slate-400 font-semibold mb-1">Informasi Detail Fasyankes</div>
           <div className="flex items-center gap-2 mb-2">
             <Hospital className="w-6 h-6 text-purple-400" />
-            <h2 className="text-2xl font-bold text-slate-900">{fasyankesData.nama}</h2>
+            <h2 className="text-2xl font-bold text-slate-900">{fasyankesData.name}</h2>
           </div>
         </div>
         <div className="flex gap-6">
@@ -32,7 +32,7 @@ export default function FasyankesDetail({ fasyankesData }: { fasyankesData: Fasy
             <Trash2 className="w-5 h-5" />
             Hapus Akun Fasyankes
           </button>
-          <Link href={`/fasyankes/${fasyankesData.id}/edit`} className="flex items-center gap-1 text-slate-700 font-semibold text-sm hover:cursor-pointer">
+          <Link href={`/fasyankes/${fasyankesData._id}/edit`} className="flex items-center gap-1 text-slate-700 font-semibold text-sm hover:cursor-pointer">
             <FilePenLine className="w-5 h-5" />
             Edit Detail
           </Link>
@@ -42,23 +42,23 @@ export default function FasyankesDetail({ fasyankesData }: { fasyankesData: Fasy
       <div className="space-y-6">
         <div>
           <div className="text-sm text-slate-400 font-semibold">Kode Fasyankes</div>
-          <div className="text-base font-semibold text-slate-900">{fasyankesData.kode}</div>
+          <div className="text-base font-semibold text-slate-900">{fasyankesData.code}</div>
         </div>
         <div>
           <div className="text-sm text-slate-400 font-semibold">Jenis Fasyankes</div>
-          <div className="text-base font-semibold text-slate-900">{fasyankesData.jenis}</div>
+          <div className="text-base font-semibold text-slate-900">{fasyankesData.type}</div>
         </div>
         <div>
           <div className="text-sm text-slate-400 font-semibold">Nomor SIP/STR/Izin Klinik</div>
-          <div className="text-base font-semibold text-slate-900">{fasyankesData.izin}</div>
+          <div className="text-base font-semibold text-slate-900">{fasyankesData.permitNumber}</div>
         </div>
         <div>
           <div className="text-sm text-slate-400 font-semibold">Alamat</div>
-          <div className="text-base font-semibold text-slate-900">{fasyankesData.alamat}</div>
+          <div className="text-base font-semibold text-slate-900">{fasyankesData.address}</div>
         </div>
         <div>
           <div className="text-sm text-slate-400 font-semibold">Nama Penanggung Jawab</div>
-          <div className="text-base font-semibold text-slate-900">{fasyankesData.penanggungJawab}</div>
+          <div className="text-base font-semibold text-slate-900">{fasyankesData.responsiblePerson}</div>
         </div>
         <div>
           <div className="text-sm text-slate-400 font-semibold">Email</div>
@@ -73,7 +73,7 @@ export default function FasyankesDetail({ fasyankesData }: { fasyankesData: Fasy
             imageBackground="bg-gradient-to-r from-red-200 to-red-500"
             confirmationText="Hapus Akun Fasyankes"
             title="Hapus Akun Fasyankes Ini?"
-            message={`Mohon konfirmasi apakah Anda yakin ingin menghapus ${fasyankesData.nama} dari daftar akun Oculab`}
+            message={`Mohon konfirmasi apakah Anda yakin ingin menghapus ${fasyankesData.name} dari daftar akun Oculab`}
             confirmationIcon={<Trash2 className="w-4 h-4" />}
             confirmationBackgroundColor="bg-red-500"
             onConfirm={() => {
