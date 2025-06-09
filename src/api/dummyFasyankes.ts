@@ -2,7 +2,7 @@
 import { FasyankesType } from "@/schemas/fasyankes";
 
 export async function getFasyankesListDummy() {
-    return Array.from({ length: 20 }).map((_, i) => ({
+    const defaultData = Array.from({ length: 19 }).map((_, i) => ({
         _id: i + 1,
         code: i + 1,
         name: 'Klinik Sehat Sentosa',
@@ -12,9 +12,26 @@ export async function getFasyankesListDummy() {
         responsiblePerson: 'dr. Rina Kusuma, M.Kes',
         email: 'rinakusuma@kliniksentosa.id',
         createdDate: '27/12/2001',
-        updatedDate: 'dd/mm/yyyy',
+        updatedDate: '30/06/2025',
         province: 'Kalimantan Selatan',
     }));
+
+    // Add one different data for search testing
+    const searchTestData = {
+        _id: 20,
+        code: 'RS-001',
+        name: 'Rumah Sakit Medika Sejahtera',
+        type: FasyankesType.FASYANKES_RS_KELAS_1,
+        permitNumber: 'RS-2024-001',
+        address: 'Jl. Medika No. 45, Surabaya',
+        responsiblePerson: 'dr. Budi Santoso, Sp.PD',
+        email: 'budi.santoso@medikasejahtera.id',
+        createdDate: '01/01/2024',
+        updatedDate: '15/03/2024',
+        province: 'Jawa Timur',
+    };
+
+    return [...defaultData, searchTestData];
 }
 
 // dummy data getFasyankesDetail with data type FasyankesModel
@@ -29,7 +46,7 @@ export async function getFasyankesDetailDummy(id: string) {
         responsiblePerson: 'Dr. Rina Kusuma, M.Kes',
         email: 'rinakusuma@kliniksentosa.id',
         createdDate: '27/12/2001',
-        updatedDate: 'dd/mm/yyyy',
+        updatedDate: '30/06/2025',
         province: 'Kalimantan Selatan',
     }
 }

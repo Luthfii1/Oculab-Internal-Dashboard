@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Search as LucideSearch, Filter as LucideFilter, ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { ColumnDef } from "@tanstack/react-table";
+import { DataTable } from './DataTable';
 
 // Types for columns and data
 export interface Column {
@@ -10,22 +12,35 @@ export interface Column {
   cell?: (row: any) => React.ReactNode;
 }
 
-interface DataTableWithTitleProps {
+interface DataTableWithTitleProps<TData, TValue> {
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
   title: string;
-  iconAddress?: string;
-  columns: Column[];
-  data: any[];
+  icon?: React.ReactNode;
 }
 
 const PAGE_SIZE_OPTIONS = [5, 10, 20, 50];
 
-const DataTableWithTitle: React.FC<DataTableWithTitleProps> = ({ title, iconAddress, columns, data }) => {
+export function DataTableWithTitle<TData, TValue>({
+  columns,
+  data,
+  title,
+  icon,
+}: DataTableWithTitleProps<TData, TValue>) {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredData, setFilteredData] = useState<TData[]>([]);
 
-  const totalPages = Math.ceil(data.length / pageSize);
-  const paginatedData = data.slice((page - 1) * pageSize, page * pageSize);
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setFilteredData(data);
+    }
+  }, [data, searchQuery]);
+
+  const totalPages = Math.ceil(filteredData.length / pageSize);
+  const paginatedData = filteredData.slice((page - 1) * pageSize, page * pageSize);
 
   const handlePageSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPageSize(Number(e.target.value));
@@ -36,21 +51,45 @@ const DataTableWithTitle: React.FC<DataTableWithTitleProps> = ({ title, iconAddr
     setPage(Math.max(1, Math.min(totalPages, newPage)));
   };
 
-  return (
-    <div className="bg-white">
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    
+    if (!query.trim()) {
+      setFilteredData(data);
+      return;
+    }
 
-      {/* title with icon and text */}
-      <div className="flex items-center gap-3 mb-4">
-        {iconAddress && (
-          <Image src={iconAddress} alt={title} width={40} height={40} />
-        )}
-        <h2 className="text-base font-bold text-slate-900">{title}</h2>
+    const searchLower = query.toLowerCase();
+    const filtered = data.filter((item: any) => {
+      // Search through all string fields
+      return Object.entries(item).some(([key, value]) => {
+        if (typeof value === 'string') {
+          return value.toLowerCase().includes(searchLower);
+        }
+        return false;
+      });
+    });
+
+    setFilteredData(filtered);
+  };
+
+  return (
+    <div className="w-full">
+      <div className="flex items-center gap-2 mb-4">
+        {icon}
+        <h2 className="text-2xl font-bold">{title}</h2>
       </div>
 
       {/* search bar with button filter at the edge of the right and magnifying glass icon inside the search bar */}
       <div className="flex items-center justify-between mb-4 gap-4">
         <div className="relative w-full">
-          <input type="text" placeholder="Cari nama fasyankes..." className="w-full pl-4 pr-10 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm" />
+          <input 
+            type="text" 
+            placeholder="Cari nama fasyankes..." 
+            className="w-full pl-4 pr-10 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+            value={searchQuery}
+            onChange={(e) => handleSearch(e.target.value)}
+          />
           <LucideSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
         </div>
         <button className="bg-purple-500 hover:bg-purple-600 text-white rounded-lg px-4 py-2 font-semibold text-xs transition-colors duration-200 flex items-center gap-2">
@@ -59,35 +98,7 @@ const DataTableWithTitle: React.FC<DataTableWithTitleProps> = ({ title, iconAddr
         </button>
       </div>
 
-      {/* table */}
-      <div className="overflow-x-auto rounded-2xl shadow-sm border border-slate-200">
-        <table className="min-w-full text-sm">
-          <thead>
-            <tr className="border-b border-slate-200 bg-purple-100">
-              {columns.map((col) => (
-                <th key={col.accessorKey} className="text-left py-2 px-3 text-center font-semibold text-slate-900 text-xs">
-                  {col.header}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {paginatedData.map((row, idx) => (
-              <tr
-                key={idx}
-                className="border-b border-slate-100 hover:bg-slate-50 hover:cursor-pointer"
-                onClick={() => router.push(`/fasyankes/${row._id}`)}
-              >
-                {columns.map((col) => (
-                  <td key={col.accessorKey} className="py-2 px-3 text-xs text-slate-500">
-                    {col.cell ? col.cell({ ...row, index: (page - 1) * pageSize + idx }) : row[col.accessorKey]}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <DataTable columns={columns} data={paginatedData} meta={{ page, pageSize }} />
 
       {/* Pagination */}
       <div className="flex items-center justify-end gap-6 mt-4 text-slate-700 text-sm">
@@ -143,6 +154,6 @@ const DataTableWithTitle: React.FC<DataTableWithTitleProps> = ({ title, iconAddr
       </div>
     </div>
   );
-};
+}
 
 export default DataTableWithTitle; 

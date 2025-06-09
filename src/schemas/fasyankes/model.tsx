@@ -26,9 +26,13 @@ export enum FasyankesType {
 // table model for fasyankes
 export const fasyankesColumns: Column[] = [
     {
-        header: 'No',
-        accessorKey: 'no',
-        cell: (row) => row.index + 1,
+        header: "No",
+        accessorKey: "no",
+        cell: ({ row, table }) => {
+          const page = table.options.meta?.page ?? 1;
+          const pageSize = table.options.meta?.pageSize ?? 10;
+          return (page - 1) * pageSize + row.index + 1;
+        },
     },
     { header: 'Fasyankes', accessorKey: 'name' },
     { header: 'Penanggung Jawab', accessorKey: 'responsiblePerson' },
