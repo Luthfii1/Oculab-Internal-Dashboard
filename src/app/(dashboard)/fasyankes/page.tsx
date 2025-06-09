@@ -34,7 +34,7 @@ const AccountsPage = () => {
   }, []);
 
   return (
-    <div className="p-6">
+    <div className="W-full mt-8 mx-auto p-0">
     
      {/* title with icon and text */}
       <div className="flex items-center gap-2 min-h-[48px] mb-2">

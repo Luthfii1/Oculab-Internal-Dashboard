@@ -8,7 +8,7 @@ import { useState } from 'react';
 export default function DetailFasyankes({ data }: { data: any }) {
   const [showConfirm, setShowConfirm] = useState(false);
   return (
-    <div className="px-12 py-8">
+    <div className="W-full mt-8 mx-auto p-0">
       {/* Header */}
       <div className="flex items-center mb-8">
         <Link href="/fasyankes" className="flex items-center text-slate-600 hover:text-purple-600 text-sm font-medium mr-6">

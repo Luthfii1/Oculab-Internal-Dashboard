@@ -12,6 +12,7 @@ import { RotateCcw, UserCheck } from 'lucide-react';
 import { ConfirmationPopup } from '../shared/ConfirmationPopup';
 
 const formSchema = z.object({
+  id: z.string().optional(),
   nama: z.string().min(1, { message: 'Nama fasyankes harus diisi' }),
   jenis: z.string().min(1, { message: 'Jenis fasyankes harus diisi' }),
   izin: z.string().min(1, { message: 'Nomor SIP/STR/Izin Klinik harus diisi' }),
@@ -51,6 +52,7 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
     resolver: zodResolver(formSchema),
     mode: 'onChange',
     defaultValues: {
+      id: '',
       nama: '',
       kode: '',
       jenis: '',
