@@ -25,10 +25,10 @@ const formSchema = z.object({
 export type FasyankesFormSchema = z.infer<typeof formSchema>;
 
 const jenisOptions = [
-  { value: 'kategori-a', label: 'Kategori A' },
-  { value: 'kategori-b', label: 'Kategori B' },
-  { value: 'kategori-c', label: 'Kategori C' },
-  { value: 'kategori-d', label: 'Kategori D' },
+  { value: 'Kategori A', label: 'Kategori A' },
+  { value: 'Kategori B', label: 'Kategori B' },
+  { value: 'Kategori C', label: 'Kategori C' },
+  { value: 'Kategori D', label: 'Kategori D' },
 ];
 
 interface FasyankesFormProps {

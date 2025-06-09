@@ -18,7 +18,7 @@ export async function getFasyankesDetailDummy(id: string) {
         id: id,
         nama: 'Klinik Sehat Sentosa',
         kode: '1234567890',
-        jenis: 'Klinik Pratama',
+        jenis: 'Kategori A',
         izin: '1234567890',
         alamat: 'Jl. Raya No. 123, Jakarta',
         penanggungJawab: 'dr. Rina Kusuma, M.Kes',
