@@ -1,6 +1,5 @@
 'use client';
 import React, { useState } from 'react';
-import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '../ui/form';
@@ -10,26 +9,7 @@ import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';
 import { RotateCcw, UserCheck } from 'lucide-react';
 import { ConfirmationPopup } from '../shared/ConfirmationPopup';
-
-const formSchema = z.object({
-  id: z.string().optional(),
-  nama: z.string().min(1, { message: 'Nama fasyankes harus diisi' }),
-  jenis: z.string().min(1, { message: 'Jenis fasyankes harus diisi' }),
-  izin: z.string().min(1, { message: 'Nomor SIP/STR/Izin Klinik harus diisi' }),
-  alamat: z.string().min(1, { message: 'Alamat harus diisi' }),
-  penanggungJawab: z.string().min(1, { message: 'Nama penanggung jawab harus diisi' }),
-  email: z.string().email({ message: 'Email tidak valid' }),
-  kode: z.string().optional(),
-});
-
-export type FasyankesFormSchema = z.infer<typeof formSchema>;
-
-const jenisOptions = [
-  { value: 'Kategori A', label: 'Kategori A' },
-  { value: 'Kategori B', label: 'Kategori B' },
-  { value: 'Kategori C', label: 'Kategori C' },
-  { value: 'Kategori D', label: 'Kategori D' },
-];
+import { FasyankesFormSchema, fasyankesFormSchema, FasyankesType, typeOptions } from '@/schemas/fasyankes';
 
 interface FasyankesFormProps {
   defaultValues?: Partial<FasyankesFormSchema>;
@@ -49,16 +29,16 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
   confirmationPopupProps,
 }) => {
   const form = useForm<FasyankesFormSchema>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(fasyankesFormSchema),
     mode: 'onChange',
     defaultValues: {
-      id: '',
-      nama: '',
-      kode: '',
-      jenis: '',
-      izin: '',
-      alamat: '',
-      penanggungJawab: '',
+      _id: '',
+      name: '',
+      code: '',
+      type: FasyankesType.FASYANKES_KLINIK,
+      permitNumber: '',
+      address: '',
+      responsiblePerson: '',
       email: '',
       ...defaultValues,
     },
@@ -76,7 +56,7 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
 
   const handleConfirm = () => {
     setShowConfirm(false);
-    onSubmit(form.getValues() as FasyankesFormSchema);
+    onSubmit(form.getValues());
   };
 
   return (
@@ -84,7 +64,7 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
         <FormField
           control={form.control}
-          name="nama"
+          name="name"
           rules={{ required: true }}
           render={({ field }) => (
             <FormItem>
@@ -98,7 +78,7 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
         />
         <FormField
           control={form.control}
-          name="kode"
+          name="code"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Kode Fasyankes</FormLabel>
@@ -112,7 +92,7 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
         />
         <FormField
           control={form.control}
-          name="jenis"
+          name="type"
           rules={{ required: true }}
           render={({ field }) => (
             <FormItem>
@@ -124,7 +104,7 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {jenisOptions.map((opt) => (
+                  {typeOptions.map((opt) => (
                     <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
                   ))}
                 </SelectContent>
@@ -135,7 +115,7 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
         />
         <FormField
           control={form.control}
-          name="izin"
+          name="permitNumber"
           rules={{ required: true }}
           render={({ field }) => (
             <FormItem>
@@ -150,7 +130,7 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
         />
         <FormField
           control={form.control}
-          name="alamat"
+          name="address"
           rules={{ required: true }}
           render={({ field }) => (
             <FormItem>
@@ -164,7 +144,7 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
         />
         <FormField
           control={form.control}
-          name="penanggungJawab"
+          name="responsiblePerson"
           rules={{ required: true }}
           render={({ field }) => (
             <FormItem>
@@ -191,7 +171,7 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
             </FormItem>
           )}
         />
-        <div className="flex gap-3 justify-end">
+        <div className="flex justify-end gap-4">
           {onCancel && (
             <button
               type="button"
@@ -216,6 +196,7 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
           </Button>
         </div>
       </form>
+
       {showConfirm && confirmationPopupProps && (
         <div className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/30">
           <ConfirmationPopup

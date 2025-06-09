@@ -1,5 +1,5 @@
 // dummy data getFasyankesList generate 20 data with data type FasyankesModel
-import { FasyankesType } from "@/model/FasyankesModel";
+import { FasyankesType } from "@/schemas/fasyankes";
 
 export async function getFasyankesListDummy() {
     return Array.from({ length: 20 }).map((_, i) => ({
@@ -23,7 +23,7 @@ export async function getFasyankesDetailDummy(id: string) {
         _id: id,
         code: '1234567890',
         name: 'Klinik Sehat Sentosa',
-        type: FasyankesType.FASYANKES_KLINIK,
+        type: FasyankesType.FASYANKES_RS_KELAS_1,
         permitNumber: '1234567890',
         address: 'Jl. Raya No. 123, Jakarta',
         responsiblePerson: 'Dr. Rina Kusuma, M.Kes',

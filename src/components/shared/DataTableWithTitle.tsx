@@ -76,7 +76,7 @@ const DataTableWithTitle: React.FC<DataTableWithTitleProps> = ({ title, iconAddr
               <tr
                 key={idx}
                 className="border-b border-slate-100 hover:bg-slate-50 hover:cursor-pointer"
-                onClick={() => router.push(`/fasyankes/${row.id}`)}
+                onClick={() => router.push(`/fasyankes/${row._id}`)}
               >
                 {columns.map((col) => (
                   <td key={col.accessorKey} className="py-2 px-3 text-xs text-slate-500">

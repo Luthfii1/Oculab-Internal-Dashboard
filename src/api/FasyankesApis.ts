@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { getFasyankesDetailDummy, getFasyankesListDummy } from './dummyFasyankes';
-import { FasyankesFormSchema } from '@/components/fasyankes/FasyankesForm';
-import { FasyankesModel } from '@/model/FasyankesModel';
+import { FasyankesModel } from '@/schemas/fasyankes';
 
 const IS_DEVELOPMENT_MODE = process.env.NEXT_PUBLIC_IS_DEVELOPMENT_MODE && process.env.NEXT_PUBLIC_IS_DEVELOPMENT_MODE !== null;
 const BASE_URL = IS_DEVELOPMENT_MODE ? 'http://localhost:8080' : process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:8080';

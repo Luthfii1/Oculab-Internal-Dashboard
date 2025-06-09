@@ -4,10 +4,11 @@ import { ConfirmationPopup } from '@/components/shared/ConfirmationPopup';
 import { ChevronLeft, Hospital, Trash2, FilePenLine } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
-import { FasyankesModel } from '@/model/FasyankesModel';
+import { FasyankesModel } from '@/schemas/fasyankes';
 
 export default function FasyankesDetail({ fasyankesData }: { fasyankesData: FasyankesModel }) {
   const [showConfirm, setShowConfirm] = useState(false);
+
   return (
     <div className="W-full mt-8 mx-auto p-0">
       {/* Header */}
