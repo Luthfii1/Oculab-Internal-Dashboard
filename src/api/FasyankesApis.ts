@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getFasyankesDetailDummy, getFasyankesListDummy } from './dummyFasyankes';
 import { FasyankesFormSchema } from '@/components/fasyankes/FasyankesForm';
+import { FasyankesModel } from '@/model/FasyankesModel';
 
 const IS_DEVELOPMENT_MODE = process.env.NEXT_PUBLIC_IS_DEVELOPMENT_MODE && process.env.NEXT_PUBLIC_IS_DEVELOPMENT_MODE !== null;
 const BASE_URL = IS_DEVELOPMENT_MODE ? 'http://localhost:8080' : process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:8080';
@@ -12,7 +13,7 @@ export async function getFasyankesList() {
       return getFasyankesListDummy();
     }
     const res = await axios.get(`${BASE_URL}/api/fasyankes`);
-    return res.data;
+    return res. data as FasyankesModel[];
   } catch (error: any) {
     throw new Error(error?.response?.data?.message || 'Failed to fetch fasyankes list');
   }

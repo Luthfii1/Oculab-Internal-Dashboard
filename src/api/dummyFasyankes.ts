@@ -1,29 +1,35 @@
-// dummy data getFasyankesList generate 20 data
+// dummy data getFasyankesList generate 20 data with data type FasyankesModel
+import { FasyankesType } from "@/model/FasyankesModel";
+
 export async function getFasyankesListDummy() {
     return Array.from({ length: 20 }).map((_, i) => ({
-    id: i + 1,
-    no: i + 1,
-    fasyankes: 'Klinik Sehat Sentosa',
-    pj: 'dr. Rina Kusuma, M.Kes',
-    email: 'rinakusuma@kliniksentosa.id',
-    jenis: 'Klinik Pratama',
-    provinsi: 'Kalimantan Selatan',
-    created: '27/12/2001',
-    updated: 'dd/mm/yyyy',
-  }));
+        _id: i + 1,
+        code: i + 1,
+        name: 'Klinik Sehat Sentosa',
+        type: FasyankesType.FASYANKES_KLINIK,
+        permitNumber: '1234567890',
+        address: 'Jl. Raya No. 123, Jakarta',
+        responsiblePerson: 'dr. Rina Kusuma, M.Kes',
+        email: 'rinakusuma@kliniksentosa.id',
+        createdDate: '27/12/2001',
+        updatedDate: 'dd/mm/yyyy',
+        province: 'Kalimantan Selatan',
+    }));
 }
 
+// dummy data getFasyankesDetail with data type FasyankesModel
 export async function getFasyankesDetailDummy(id: string) {
     return {
-        id: id,
-        nama: 'Klinik Sehat Sentosa',
-        kode: '1234567890',
-        jenis: 'Kategori A',
-        izin: '1234567890',
-        alamat: 'Jl. Raya No. 123, Jakarta',
-        penanggungJawab: 'dr. Rina Kusuma, M.Kes',
+        _id: id,
+        code: '1234567890',
+        name: 'Klinik Sehat Sentosa',
+        type: FasyankesType.FASYANKES_KLINIK,
+        permitNumber: '1234567890',
+        address: 'Jl. Raya No. 123, Jakarta',
+        responsiblePerson: 'Dr. Rina Kusuma, M.Kes',
         email: 'rinakusuma@kliniksentosa.id',
-        created: '27/12/2001',
-        updated: 'dd/mm/yyyy',
+        createdDate: '27/12/2001',
+        updatedDate: 'dd/mm/yyyy',
+        province: 'Kalimantan Selatan',
     }
 }

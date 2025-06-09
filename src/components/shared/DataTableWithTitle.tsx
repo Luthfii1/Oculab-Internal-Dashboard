@@ -80,7 +80,7 @@ const DataTableWithTitle: React.FC<DataTableWithTitleProps> = ({ title, iconAddr
               >
                 {columns.map((col) => (
                   <td key={col.accessorKey} className="py-2 px-3 text-xs text-slate-500">
-                    {col.cell ? col.cell(row) : row[col.accessorKey]}
+                    {col.cell ? col.cell({ ...row, index: (page - 1) * pageSize + idx }) : row[col.accessorKey]}
                   </td>
                 ))}
               </tr>
