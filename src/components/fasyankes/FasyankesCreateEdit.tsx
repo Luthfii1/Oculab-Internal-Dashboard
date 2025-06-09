@@ -9,7 +9,6 @@ export default function FasyankesCreateEdit({ fasyankesData }: { fasyankesData?:
   const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
-    console.log(fasyankesData);
     if (fasyankesData && fasyankesData.id) {
       setIsEdit(true);
     } else {
