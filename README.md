@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Oculab Internal Dashboard
+
+A modern internal dashboard for Oculab, built with Next.js, React, Tailwind CSS, shadcn/ui, and Zod. This dashboard provides management and CRUD features for health facilities (Fasyankes) and users, with a focus on usability, validation, and a beautiful UI.
+
+## Features
+- Responsive dashboard layout with sidebar, header, and main content
+- Fasyankes (health facility) management: add, edit, delete, view details
+- User management (coming soon)
+- Data table with search, pagination, and auto-increment row numbers
+- Form validation with Zod and react-hook-form
+- Custom toast notifications for success/error/info
+- Confirmation popups for critical actions
+- Loading indicators and error handling
+
+## Tech Stack
+- [Next.js 15](https://nextjs.org/)
+- [React 19](https://react.dev/)
+- [Tailwind CSS 4](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Zod](https://zod.dev/) (validation)
+- [react-hook-form](https://react-hook-form.com/)
+- [Lucide React](https://lucide.dev/)
+- [@tanstack/react-table](https://tanstack.com/table/v8)
 
 ## Getting Started
 
-First, run the development server:
-
+### 1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/your-org/oculab-internal-dashboard.git
+cd oculab-internal-dashboard
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Set up environment variables
+Create a `.env.local` file in the root directory and add:
+```env
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+```
+For staging/production, use `.env.staging` or `.env.production` and set `NEXT_PUBLIC_BASE_URL` accordingly.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Run the development server
+```bash
+npm run dev
+```
+Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Learn More
+## Project Structure
+```
+src/
+  api/                # API utilities and dummy data
+  components/         # React components (shared, fasyankes, ui, etc)
+  schemas/            # Zod schemas and enums
+  app/                # Next.js app directory
+  utils/              # Utility functions (apiUtils, etc)
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Development Tips
+- Use the search bar in tables to quickly filter data.
+- All forms use Zod for validation; error messages will appear inline.
+- Toast notifications appear in the top-right for feedback.
+- Confirmation popups prevent accidental destructive actions.
+- Loading indicators are shown during async operations.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scripts
+- `npm run dev` — Start development server
+- `npm run build` — Build for production
+- `npm run start` — Start production server
+- `npm run lint` — Run ESLint
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## License
+MIT
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Oculab Internal Dashboard** — Built with ❤️ by the Oculab team.
