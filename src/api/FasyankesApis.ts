@@ -19,7 +19,7 @@ export async function getFasyankesList(): Promise<FasyankesModel[]> {
     let response = handleResponse(res.data);
     return response.data as FasyankesModel[];
   } catch (error: any) {
-    throw new Error(error?.response?.data?.message || 'Failed to fetch fasyankes list');
+    throw new Error(error?.response?.data?.data?.description || 'Failed to fetch fasyankes list');
   }
 }
 
@@ -34,7 +34,7 @@ export async function getFasyankesDetail(healthFacilityId: string): Promise<Fasy
     let response = handleResponse(res.data);
     return response.data as FasyankesModel;
   } catch (error: any) {
-    throw new Error(error?.response?.data?.message || 'Failed to fetch fasyankes detail');
+    throw new Error(error?.response?.data?.data?.description || 'Failed to fetch fasyankes detail');
   }
 }
 
