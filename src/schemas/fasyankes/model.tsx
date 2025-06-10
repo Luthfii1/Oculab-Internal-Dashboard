@@ -8,8 +8,8 @@ export interface FasyankesModel {
     type: FasyankesType;
     permitNumber: string;
     address: string;
-    responsiblePerson: string;
-    email: string;
+    facilityPICName: string;
+    facilityPICEmail: string;
     createdDate: string;
     updatedDate: string;
     province: string;
@@ -17,10 +17,12 @@ export interface FasyankesModel {
 
 // enum for fasyankes type
 export enum FasyankesType {
-    FASYANKES_KLINIK = 'Fasyankes Klinik',
-    FASYANKES_RS_KELAS_1 = 'Fasyankes RS Kelas 1',
-    FASYANKES_RS_KELAS_2 = 'Fasyankes RS Kelas 2',
-    FASYANKES_RS_KELAS_3 = 'Fasyankes RS Kelas 3',
+    RUMAHSAKIT = "RUMAH SAKIT",
+    PUSKESMAS = "PUSKESMAS",
+    KLINIK = "KLINIK",
+    PRAKTIKDOKTER = "PRAKTIK DOKTER",
+    APOTEK = "APOTEK",
+    LABORATORIUM = "LABORATORIUM",
 }
 
 // table model for fasyankes
@@ -35,8 +37,8 @@ export const fasyankesColumns: Column[] = [
         },
     },
     { header: 'Fasyankes', accessorKey: 'name' },
-    { header: 'Penanggung Jawab', accessorKey: 'responsiblePerson' },
-    { header: 'Email PJ', accessorKey: 'email' },
+    { header: 'Penanggung Jawab', accessorKey: 'facilityPICName' },
+    { header: 'Email PJ', accessorKey: 'facilityPICEmail' },
     { header: 'Jenis Fasyankes', accessorKey: 'type' },
     { header: 'Provinsi', accessorKey: 'province' },
     { header: 'Tanggal dibuat', accessorKey: 'createdDate' },

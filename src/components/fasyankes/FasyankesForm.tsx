@@ -35,11 +35,11 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
       _id: '',
       name: '',
       code: '',
-      type: FasyankesType.FASYANKES_KLINIK,
+      type: FasyankesType.KLINIK,
       permitNumber: '',
       address: '',
-      responsiblePerson: '',
-      email: '',
+      facilityPICName: '',
+      facilityPICEmail: '',
       ...defaultValues,
     },
   });
@@ -144,7 +144,7 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
         />
         <FormField
           control={form.control}
-          name="responsiblePerson"
+          name="facilityPICName"
           rules={{ required: true }}
           render={({ field }) => (
             <FormItem>
@@ -159,7 +159,7 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
         />
         <FormField
           control={form.control}
-          name="email"
+          name="facilityPICEmail"
           rules={{ required: true }}
           render={({ field }) => (
             <FormItem>

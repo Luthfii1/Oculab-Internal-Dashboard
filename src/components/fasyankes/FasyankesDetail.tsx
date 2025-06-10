@@ -59,11 +59,11 @@ export default function FasyankesDetail({ fasyankesData }: { fasyankesData: Fasy
         </div>
         <div>
           <div className="text-sm text-slate-400 font-semibold">Nama Penanggung Jawab</div>
-          <div className="text-base font-semibold text-slate-900">{fasyankesData.responsiblePerson}</div>
+          <div className="text-base font-semibold text-slate-900">{fasyankesData.facilityPICName}</div>
         </div>
         <div>
           <div className="text-sm text-slate-400 font-semibold">Email</div>
-          <div className="text-base font-semibold text-slate-900">{fasyankesData.email}</div>
+          <div className="text-base font-semibold text-slate-900">{fasyankesData.facilityPICEmail}</div>
         </div>
       </div>
 
