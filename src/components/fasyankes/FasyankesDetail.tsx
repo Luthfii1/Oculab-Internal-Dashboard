@@ -5,9 +5,38 @@ import { ChevronLeft, Hospital, Trash2, FilePenLine } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { FasyankesModel } from '@/schemas/fasyankes';
+import { deleteFasyankes } from '@/api/FasyankesApis';
+import { handleError } from '@/lib/apiUtils';
+import { useToast, ToastType } from '../shared/ToastContext';
+import { useRouter } from 'next/navigation';
 
 export default function FasyankesDetail({ fasyankesData }: { fasyankesData: FasyankesModel }) {
   const [showConfirm, setShowConfirm] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { showToast } = useToast();
+  const router = useRouter();
+  
+  const handleDelete = async () => {
+    setIsLoading(true);
+    try {
+      await deleteFasyankes(fasyankesData._id);
+      showToast(
+        'Berhasil menghapus data fasyankes', 
+        'Data fasyankes berhasil dihapus', 
+        ToastType.SUCCESS
+      );
+      router.push('/fasyankes');
+    } catch (error) {
+      const errorMsg = handleError(error);
+      showToast(
+        'Gagal menghapus data fasyankes', 
+        errorMsg, 
+        ToastType.ERROR
+      );
+    }
+    setIsLoading(false);
+    setShowConfirm(false);
+  }
 
   return (
     <div className="W-full mt-8 mx-auto p-0">
@@ -77,10 +106,8 @@ export default function FasyankesDetail({ fasyankesData }: { fasyankesData: Fasy
             message={`Mohon konfirmasi apakah Anda yakin ingin menghapus ${fasyankesData.name} dari daftar akun Oculab`}
             confirmationIcon={<Trash2 className="w-4 h-4" />}
             confirmationBackgroundColor="bg-red-500"
-            onConfirm={() => {
-                console.log('Hapus Akun Fasyankes');
-                setShowConfirm(false);
-            }}
+            isLoading={isLoading}
+            onConfirm={handleDelete}
             onCancel={() => setShowConfirm(false)}
         />
       </div>

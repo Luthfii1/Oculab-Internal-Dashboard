@@ -51,17 +51,19 @@ export async function createFasyankes(data: FasyankesFormSchema): Promise<Fasyan
 export async function updateFasyankes(healthFacilityId: string, data: FasyankesFormSchema): Promise<FasyankesModel> {
   try {
     const res = await axios.put(`${BASE_URL}/healthFacility/update-health-facility/${healthFacilityId}`, data);
-    return res.data;
+    let response = handleResponse(res.data);
+    return response.data as FasyankesModel;
   } catch (error: any) {
-    throw new Error(error?.response?.data?.message || 'Failed to update fasyankes');
+    throw new Error(error?.response?.data?.data?.description || 'Failed to update fasyankes');
   }
 }
 
 export async function deleteFasyankes(healthFacilityId: string): Promise<FasyankesModel> {
   try {
     const res = await axios.delete(`${BASE_URL}/healthFacility/delete-health-facility/${healthFacilityId}`);
-    return res.data;
+    let response = handleResponse(res.data);
+    return response.data as FasyankesModel;
   } catch (error: any) {
-    throw new Error(error?.response?.data?.message || 'Failed to delete fasyankes');
+    throw new Error(error?.response?.data?.data?.description || 'Failed to delete fasyankes');
   }
 }
