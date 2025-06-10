@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getFasyankesDetailDummy, getFasyankesListDummy } from './dummyFasyankes';
-import { FasyankesModel } from '@/schemas/fasyankes';
+import { FasyankesFormSchema, FasyankesModel } from '@/schemas/fasyankes';
 import { ApiResponse, handleResponse } from '@/lib/apiUtils';
 import { API_URL } from '@/lib/constant';
 
@@ -38,27 +38,31 @@ export async function getFasyankesDetail(healthFacilityId: string): Promise<Fasy
   }
 }
 
-export async function createFasyankes(data: any): Promise<FasyankesModel> {
+export async function createFasyankes(data: FasyankesFormSchema): Promise<FasyankesModel> {
   try {
-    const res = await axios.post(`${BASE_URL}/api/fasyankes`, data);
-    return res.data;
+    const res = await axios.post(`${BASE_URL}/healthFacility/create-new-health-facility`, data);
+    console.log(res);
+    let response = handleResponse(res.data);
+    console.log(response);
+    return response.data as FasyankesModel;
   } catch (error: any) {
-    throw new Error(error?.response?.data?.message || 'Failed to create fasyankes');
+    console.log(error.response.data);
+    throw new Error(error?.response?.data?.data?.description || 'Failed to create fasyankes');
   }
 }
 
-export async function updateFasyankes(id: string, data: any): Promise<FasyankesModel> {
+export async function updateFasyankes(healthFacilityId: string, data: FasyankesFormSchema): Promise<FasyankesModel> {
   try {
-    const res = await axios.put(`${BASE_URL}/api/fasyankes/${id}`, data);
+    const res = await axios.put(`${BASE_URL}/healthFacility/update-health-facility/${healthFacilityId}`, data);
     return res.data;
   } catch (error: any) {
     throw new Error(error?.response?.data?.message || 'Failed to update fasyankes');
   }
 }
 
-export async function deleteFasyankes(id: string): Promise<FasyankesModel> {
+export async function deleteFasyankes(healthFacilityId: string): Promise<FasyankesModel> {
   try {
-    const res = await axios.delete(`${BASE_URL}/api/fasyankes/${id}`);
+    const res = await axios.delete(`${BASE_URL}/healthFacility/delete-health-facility/${healthFacilityId}`);
     return res.data;
   } catch (error: any) {
     throw new Error(error?.response?.data?.message || 'Failed to delete fasyankes');

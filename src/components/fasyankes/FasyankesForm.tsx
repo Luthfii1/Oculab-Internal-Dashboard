@@ -9,7 +9,7 @@ import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';
 import { RotateCcw, UserCheck } from 'lucide-react';
 import { ConfirmationPopup } from '../shared/ConfirmationPopup';
-import { FasyankesFormSchema, fasyankesFormSchema, FasyankesType, typeOptions } from '@/schemas/fasyankes';
+import { FasyankesFormSchema, fasyankesFormSchema, FasyankesType, provinceOptions, typeOptions } from '@/schemas/fasyankes';
 
 interface FasyankesFormProps {
   defaultValues?: Partial<FasyankesFormSchema>;
@@ -35,28 +35,38 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
       _id: '',
       name: '',
       code: '',
-      type: FasyankesType.KLINIK,
+      type: '',
       permitNumber: '',
       address: '',
       facilityPICName: '',
       facilityPICEmail: '',
+      province: '',
       ...defaultValues,
     },
   });
 
   const [showConfirm, setShowConfirm] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [pendingValues, setPendingValues] = useState<FasyankesFormSchema | null>(null);
 
   const handleSubmit = (values: FasyankesFormSchema) => {
     if (confirmationPopupProps) {
+      setPendingValues(values);
       setShowConfirm(true);
     } else {
       onSubmit(values);
     }
   };
 
-  const handleConfirm = () => {
-    setShowConfirm(false);
-    onSubmit(form.getValues());
+  const handleConfirm = async () => {
+    if (!pendingValues) return;
+    setConfirmLoading(true);
+    try {
+      await onSubmit(pendingValues);
+      setShowConfirm(false);
+    } finally {
+      setConfirmLoading(false);
+    }
   };
 
   return (
@@ -97,10 +107,10 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
           render={({ field }) => (
             <FormItem>
               <FormLabel>Jenis Fasyankes</FormLabel>
-              <Select onValueChange={field.onChange} value={field.value}>
+              <Select onValueChange={field.onChange} value={field.value || ""}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Pilih jenis fasyankes" />
+                    <SelectValue placeholder="Pilih Jenis Fasyankes" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -109,6 +119,7 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
                   ))}
                 </SelectContent>
               </Select>
+              <div className="text-xs text-slate-500 mt-1">Pilih jenis fasyankes</div>
               <FormMessage />
             </FormItem>
           )}
@@ -138,6 +149,30 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
               <FormControl>
                 <Textarea {...field} placeholder="Masukkan alamat lengkap" rows={3} />
               </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="province"
+          rules={{ required: true }}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Provinsi</FormLabel>
+              <Select onValueChange={field.onChange} value={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Pilih provinsi" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {provinceOptions.map((opt) => (
+                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <div className="text-xs text-slate-500 mt-1">Pilih provinsi fasyankes</div>
               <FormMessage />
             </FormItem>
           )}
@@ -201,6 +236,7 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
         <div className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/30">
           <ConfirmationPopup
             {...confirmationPopupProps}
+            isLoading={confirmLoading}
             onConfirm={handleConfirm}
             onCancel={() => setShowConfirm(false)}
           />

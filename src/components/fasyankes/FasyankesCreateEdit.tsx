@@ -4,10 +4,16 @@ import { FasyankesForm } from './FasyankesForm';
 import { FasyankesFormSchema } from '@/schemas/fasyankes';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { createFasyankes, updateFasyankes } from '@/api/FasyankesApis';
+import { useRouter } from 'next/navigation';
+import { useToast, ToastType } from '../shared/ToastContext';
+import { handleError } from '@/lib/apiUtils';
 
 export default function FasyankesCreateEdit({ fasyankesData }: { fasyankesData?: Partial<FasyankesFormSchema> }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const router = useRouter();
+  const { showToast } = useToast();
 
   useEffect(() => {
     if (fasyankesData && fasyankesData._id) {
@@ -17,8 +23,47 @@ export default function FasyankesCreateEdit({ fasyankesData }: { fasyankesData?:
     }
   }, [fasyankesData]);
 
-  const handleSubmit = (values: FasyankesFormSchema) => {
-    console.log(values);
+  const handleSubmit = async (values: FasyankesFormSchema) => {
+    setIsLoading(true);
+    if (isEdit) {
+      try {
+        await updateFasyankes(fasyankesData?._id as string, values);
+        showToast(
+          'Berhasil mengubah data fasyankes', 
+          'Data fasyankes berhasil diubah', 
+          ToastType.SUCCESS
+        );
+        router.push(`/fasyankes/${fasyankesData?._id}`);
+      } catch (error) {
+        const errorMsg = handleError(error);
+        showToast(
+          'Gagal mengubah data fasyankes', 
+          errorMsg, 
+          ToastType.ERROR
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      try {
+        await createFasyankes(values);
+        showToast(
+          'Berhasil membuat data fasyankes', 
+          'Data fasyankes berhasil dibuat', 
+          ToastType.SUCCESS
+        );
+        router.push(`/fasyankes`);
+      } catch (error) {
+        const errorMsg = handleError(error);
+        showToast(
+          'Gagal membuat data fasyankes', 
+          errorMsg, 
+          ToastType.ERROR
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    }
   };
 
   return (
@@ -50,6 +95,7 @@ export default function FasyankesCreateEdit({ fasyankesData }: { fasyankesData?:
           confirmationText: isEdit ? 'Simpan' : 'Buat Akun',
           confirmationIcon: <UserCheck className="w-4 h-4 text-white" />,
           confirmationBackgroundColor: 'bg-purple-500',
+          isLoading: isLoading,
           onConfirm: () => {
             if (isEdit) {
               console.log('Simpan');

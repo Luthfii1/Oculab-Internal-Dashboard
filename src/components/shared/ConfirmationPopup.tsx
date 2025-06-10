@@ -1,3 +1,4 @@
+import { Loader2 } from 'lucide-react';
 import React from 'react';
 
 interface ConfirmationPopupProps {
@@ -7,6 +8,7 @@ interface ConfirmationPopupProps {
   confirmationText: string;
   confirmationIcon?: React.ReactNode;
   confirmationBackgroundColor?: string;
+  isLoading?: boolean;
   onConfirm: () => void;
   onCancel?: () => void;
   cancelText?: string;
@@ -19,6 +21,7 @@ export const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
   message,
   confirmationText,
   confirmationIcon,
+  isLoading = false,
   confirmationBackgroundColor = '#8B5CF6', // Default to purple-500
   onConfirm,
   onCancel,
@@ -39,17 +42,21 @@ export const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
           <button
             type="button"
             onClick={onCancel}
-            className="text-red-500 hover:cursor-pointer font-semibold text-sm px-4 py-2 rounded-md hover:bg-red-50 transition"
+            className={`font-semibold text-sm px-4 py-2 rounded-md transition
+              ${isLoading ? 'opacity-50 cursor-not-allowed bg-slate-200 text-slate-400' : 'text-red-500 hover:cursor-pointer hover:bg-red-50'}`}
+            disabled={isLoading}
           >
             {cancelText}
           </button>
           <button
             type="button"
             onClick={onConfirm}
-            className={`flex items-center gap-2 hover:cursor-pointer text-white font-semibold text-sm px-4 py-2 rounded-md shadow ${confirmationBackgroundColor}`}
+            className={`flex items-center gap-2 font-semibold text-sm px-4 py-2 rounded-md shadow
+              ${isLoading ? 'opacity-50 cursor-not-allowed bg-slate-200 text-slate-400' : `${confirmationBackgroundColor} text-white hover:cursor-pointer`}`}
+            disabled={isLoading}
           >
-            {confirmationIcon}
-            {confirmationText}
+            {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : confirmationIcon}
+            {isLoading ? 'Submitting...' : confirmationText}
           </button>
         </div>
       </div>

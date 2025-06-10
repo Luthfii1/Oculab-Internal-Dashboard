@@ -2,7 +2,12 @@
 
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 
-type ToastType = 'success' | 'error' | 'info';
+// make an enum for toast type
+export enum ToastType {
+  SUCCESS = 'success',
+  ERROR = 'error',
+  INFO = 'info',
+}
 
 interface ToastContextType {
   showToast: (title: string, message: string, type: ToastType) => void;
