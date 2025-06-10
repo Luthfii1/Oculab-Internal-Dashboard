@@ -9,11 +9,13 @@ import { fasyankesColumns } from "@/schemas/fasyankes";
 
 export default function FasyankesListDashboard() {
   const [data, setData] = useState<FasyankesModel[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
     const fetchData = async () => {
       const data = await getFasyankesList();
       setData(data as FasyankesModel[]);
+      setIsLoading(false);
     };
     fetchData();
   }, []);
@@ -48,6 +50,7 @@ export default function FasyankesListDashboard() {
       icon={<Image src="/icons/list-fasyanken-icon.svg" alt="List Fasyanken Icon" width={40} height={40} />}
       columns={fasyankesColumns}
       data={data}
+      isLoading={isLoading}
     />
   </div>
   );

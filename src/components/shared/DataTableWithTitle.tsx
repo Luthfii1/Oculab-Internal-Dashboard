@@ -17,6 +17,7 @@ interface DataTableWithTitleProps<TData, TValue> {
   data: TData[];
   title: string;
   icon?: React.ReactNode;
+  isLoading?: boolean;
 }
 
 const PAGE_SIZE_OPTIONS = [5, 10, 20, 50];
@@ -26,6 +27,7 @@ export function DataTableWithTitle<TData, TValue>({
   data,
   title,
   icon,
+  isLoading,
 }: DataTableWithTitleProps<TData, TValue>) {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -98,7 +100,7 @@ export function DataTableWithTitle<TData, TValue>({
         </button>
       </div>
 
-      <DataTable columns={columns} data={paginatedData} meta={{ page, pageSize }} />
+      <DataTable columns={columns} data={paginatedData} meta={{ page, pageSize }} isLoading={isLoading} />
 
       {/* Pagination */}
       <div className="flex items-center justify-end gap-6 mt-4 text-slate-700 text-sm">

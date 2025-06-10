@@ -1,6 +1,6 @@
 // dummy data getFasyankesList generate 20 data with data type FasyankesModel
 import { FasyankesModel, FasyankesType } from "@/schemas/fasyankes";
-import { ApiResponse } from "@/utils/apiUtils";
+import { ApiResponse } from "@/lib/apiUtils";
 
 export async function getFasyankesListDummy(): Promise<ApiResponse<FasyankesModel[]>> {
     const defaultData = Array.from({ length: 19 }).map((_, i) => ({

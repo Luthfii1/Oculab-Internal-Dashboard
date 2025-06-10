@@ -13,12 +13,14 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   meta?: any;
+  isLoading?: boolean;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   meta,
+  isLoading,
 }: DataTableProps<TData, TValue>) {
   const router = useRouter();
   const table = useReactTable({
@@ -51,19 +53,30 @@ export function DataTable<TData, TValue>({
           ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.map((row: Row<TData>) => (
-            <tr
-              key={row.id}
-              className="border-b border-slate-100 hover:bg-slate-50 hover:cursor-pointer"
-              onClick={() => router.push(`/fasyankes/${(row.original as any)._id}`)}
-            >
+          {isLoading ? (
+            <tr>
+              <td colSpan={columns.length} className="py-4 px-3 text-center text-slate-500">
+                <div className="flex items-center justify-center gap-2">
+                  <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-purple-500"></div>
+                  <span>Fetching data, please wait...</span>
+                </div>
+              </td>
+            </tr>
+          ) : (
+            table.getRowModel().rows.map((row: Row<TData>) => (
+              <tr
+                key={row.id}
+                className="border-b border-slate-100 hover:bg-slate-50 hover:cursor-pointer"
+                onClick={() => router.push(`/fasyankes/${(row.original as any)._id}`)}
+              >
               {row.getVisibleCells().map((cell: Cell<TData, unknown>) => (
                 <td key={cell.id} className="py-2 px-3 text-xs text-slate-500">
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>
