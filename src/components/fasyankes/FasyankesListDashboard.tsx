@@ -45,7 +45,7 @@ export default function FasyankesListDashboard() {
     {/* Data Table with Title */}
     <DataTableWithTitle
       title="Daftar Fasyankes"
-      iconAddress="icons/list-fasyanken-icon.svg"
+      icon={<Image src="/icons/list-fasyanken-icon.svg" alt="List Fasyanken Icon" width={40} height={40} />}
       columns={fasyankesColumns}
       data={data}
     />

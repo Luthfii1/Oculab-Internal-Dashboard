@@ -1,36 +1,43 @@
 import axios from 'axios';
 import { getFasyankesDetailDummy, getFasyankesListDummy } from './dummyFasyankes';
 import { FasyankesModel } from '@/schemas/fasyankes';
+import { ApiResponse, handleResponse } from '@/utils/apiUtils';
 
 const IS_DEVELOPMENT_MODE = process.env.NEXT_PUBLIC_IS_DEVELOPMENT_MODE && process.env.NEXT_PUBLIC_IS_DEVELOPMENT_MODE !== null;
 const BASE_URL = IS_DEVELOPMENT_MODE ? 'http://localhost:8080' : process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:8080';
 const USING_DUMMY_DATA = process.env.NEXT_PUBLIC_USING_DUMMY_DATA && process.env.NEXT_PUBLIC_USING_DUMMY_DATA !== null;
 
-export async function getFasyankesList() {
+export async function getFasyankesList(): Promise<FasyankesModel[]> {
   try {
     if (USING_DUMMY_DATA) {
-      return getFasyankesListDummy() as unknown as FasyankesModel[];
+      let res = await getFasyankesListDummy();
+      let response = handleResponse(res as unknown as ApiResponse<FasyankesModel[]>);
+      return response.data as FasyankesModel[];
     }
     const res = await axios.get(`${BASE_URL}/api/fasyankes`);
-    return res. data as FasyankesModel[];
+    let response = handleResponse(res as unknown as ApiResponse<FasyankesModel[]>);
+    return response.data as FasyankesModel[];
   } catch (error: any) {
     throw new Error(error?.response?.data?.message || 'Failed to fetch fasyankes list');
   }
 }
 
-export async function getFasyankesDetail(id: string) {
+export async function getFasyankesDetail(id: string): Promise<FasyankesModel> {
   try {
     if (USING_DUMMY_DATA) {
-      return getFasyankesDetailDummy(id) as unknown as FasyankesModel;
+      let res = await getFasyankesDetailDummy(id);
+      let response = handleResponse(res as unknown as ApiResponse<FasyankesModel>);
+      return response.data as FasyankesModel;
     }
     const res = await axios.get(`${BASE_URL}/api/fasyankes/${id}`);
-    return res.data as FasyankesModel;
+    let response = handleResponse(res as unknown as ApiResponse<FasyankesModel>);
+    return response.data as FasyankesModel;
   } catch (error: any) {
     throw new Error(error?.response?.data?.message || 'Failed to fetch fasyankes detail');
   }
 }
 
-export async function createFasyankes(data: any) {
+export async function createFasyankes(data: any): Promise<FasyankesModel> {
   try {
     const res = await axios.post(`${BASE_URL}/api/fasyankes`, data);
     return res.data;
@@ -39,7 +46,7 @@ export async function createFasyankes(data: any) {
   }
 }
 
-export async function updateFasyankes(id: string, data: any) {
+export async function updateFasyankes(id: string, data: any): Promise<FasyankesModel> {
   try {
     const res = await axios.put(`${BASE_URL}/api/fasyankes/${id}`, data);
     return res.data;
@@ -48,7 +55,7 @@ export async function updateFasyankes(id: string, data: any) {
   }
 }
 
-export async function deleteFasyankes(id: string) {
+export async function deleteFasyankes(id: string): Promise<FasyankesModel> {
   try {
     const res = await axios.delete(`${BASE_URL}/api/fasyankes/${id}`);
     return res.data;
