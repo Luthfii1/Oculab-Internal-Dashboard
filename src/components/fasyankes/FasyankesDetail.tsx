@@ -87,6 +87,10 @@ export default function FasyankesDetail({ fasyankesData }: { fasyankesData: Fasy
           <div className="text-base font-semibold text-slate-900">{fasyankesData.address}</div>
         </div>
         <div>
+          <div className="text-sm text-slate-400 font-semibold">Provinsi</div>
+          <div className="text-base font-semibold text-slate-900">{fasyankesData.province}</div>
+        </div>
+        <div>
           <div className="text-sm text-slate-400 font-semibold">Nama Penanggung Jawab</div>
           <div className="text-base font-semibold text-slate-900">{fasyankesData.facilityPICName}</div>
         </div>
