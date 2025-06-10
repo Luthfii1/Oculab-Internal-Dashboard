@@ -41,12 +41,9 @@ export async function getFasyankesDetail(healthFacilityId: string): Promise<Fasy
 export async function createFasyankes(data: FasyankesFormSchema): Promise<FasyankesModel> {
   try {
     const res = await axios.post(`${BASE_URL}/healthFacility/create-new-health-facility`, data);
-    console.log(res);
     let response = handleResponse(res.data);
-    console.log(response);
     return response.data as FasyankesModel;
   } catch (error: any) {
-    console.log(error.response.data);
     throw new Error(error?.response?.data?.data?.description || 'Failed to create fasyankes');
   }
 }
