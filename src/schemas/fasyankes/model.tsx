@@ -1,4 +1,4 @@
-import { Column } from "@/components/shared/DataTableWithTitle";
+import { ColumnDef, CellContext } from "@tanstack/react-table";
 
 // interface for fasyankes model
 export interface FasyankesModel {
@@ -25,15 +25,22 @@ export enum FasyankesType {
     LABORATORIUM = "LABORATORIUM",
 }
 
+// meta type for pagination
+export type PaginationMeta = {
+  page: number;
+  pageSize: number;
+};
+
 // table model for fasyankes
-export const fasyankesColumns: Column[] = [
+export const fasyankesColumns: ColumnDef<FasyankesModel>[] = [
     {
         header: "No",
         accessorKey: "no",
-        cell: ({ row, table }) => {
-          const page = table.options.meta?.page ?? 1;
-          const pageSize = table.options.meta?.pageSize ?? 10;
-          return (page - 1) * pageSize + row.index + 1;
+        cell: (cell: CellContext<FasyankesModel, unknown>) => {
+          const meta = cell.table.options.meta as PaginationMeta | undefined;
+          const page = meta?.page ?? 1;
+          const pageSize = meta?.pageSize ?? 10;
+          return (page - 1) * pageSize + cell.row.index + 1;
         },
     },
     { header: 'Fasyankes', accessorKey: 'name' },

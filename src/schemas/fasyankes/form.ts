@@ -15,12 +15,12 @@ export const fasyankesFormSchema = z.object({
 
 export type FasyankesFormSchema = z.infer<typeof fasyankesFormSchema>;
 
-export const typeOptions = Object.entries(FasyankesType).map(([key, value]) => ({
+export const typeOptions = Object.entries(FasyankesType).map(([_, value]) => ({
   value,
   label: value
 })); 
 
-export const provinceOptions = Object.entries(Province).map(([key, value]) => ({
+export const provinceOptions = Object.entries(Province).map(([_, value]) => ({
   value,
   label: value
 })); 

@@ -7,7 +7,7 @@ import { DataTable } from './DataTable';
 export interface Column {
   header: string;
   accessorKey: string;
-  cell?: (row: any) => React.ReactNode;
+  cell?: (row: unknown) => React.ReactNode;
 }
 
 interface DataTableWithTitleProps<TData, TValue> {
@@ -59,9 +59,9 @@ export function DataTableWithTitle<TData, TValue>({
     }
 
     const searchLower = query.toLowerCase();
-    const filtered = data.filter((item: any) => {
+    const filtered = data.filter((item: unknown) => {
       // Search through all string fields
-      return Object.entries(item).some(([key, value]) => {
+      return Object.entries(item as Record<string, unknown>).some(([_, value]) => {
         if (typeof value === 'string') {
           return value.toLowerCase().includes(searchLower);
         }

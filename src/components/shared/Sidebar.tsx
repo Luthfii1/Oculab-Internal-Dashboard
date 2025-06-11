@@ -19,11 +19,11 @@ const Sidebar = () => {
     setIsLoading(false);
   }, []);
 
-  // Save state to localStorage when it changes
-  const handleCollapse = (collapsed: boolean) => {
-    setIsCollapsed(collapsed);
-    localStorage.setItem('sidebarCollapsed', JSON.stringify(collapsed));
-  };
+  // // Save state to localStorage when it changes
+  // const handleCollapse = (collapsed: boolean) => {
+  //   setIsCollapsed(collapsed);
+  //   localStorage.setItem('sidebarCollapsed', JSON.stringify(collapsed));
+  // };
 
   const navItems = [
     {

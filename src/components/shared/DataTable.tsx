@@ -6,13 +6,14 @@ import {
   HeaderGroup,
   Row,
   Cell,
+  TableMeta,
 } from "@tanstack/react-table";
 import { useRouter } from "next/navigation";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  meta?: any;
+  meta?: TableMeta<TData>;
   isLoading?: boolean;
 }
 
@@ -67,7 +68,7 @@ export function DataTable<TData, TValue>({
               <tr
                 key={row.id}
                 className="border-b border-slate-100 hover:bg-slate-50 hover:cursor-pointer"
-                onClick={() => router.push(`/fasyankes/${(row.original as any)._id}`)}
+                onClick={() => router.push(`/fasyankes/${(row.original as unknown as { _id: string })._id}`)}
               >
               {row.getVisibleCells().map((cell: Cell<TData, unknown>) => (
                 <td key={cell.id} className="py-2 px-3 text-xs text-slate-500">
