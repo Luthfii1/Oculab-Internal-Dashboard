@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getFasyankesDetailDummy, getFasyankesListDummy } from './dummyFasyankes';
 import { FasyankesFormSchema, FasyankesModel } from '@/schemas/fasyankes';
-import { ApiResponse, handleResponse } from '@/lib/apiUtils';
+import { ApiResponse, extractApiErrorMessage, handleResponse } from '@/lib/apiUtils';
 import { API_URL } from '@/lib/constant';
 
 const IS_DEVELOPMENT_MODE = process.env.NEXT_PUBLIC_IS_DEVELOPMENT_MODE === 'true';
@@ -18,8 +18,8 @@ export async function getFasyankesList(): Promise<FasyankesModel[]> {
     const res = await axios.get(`${BASE_URL}/healthFacility/get-all-health-facilities`);
     const response = handleResponse(res.data);
     return response.data as FasyankesModel[];
-  } catch (error: any) {
-    throw new Error(error?.response?.data?.data?.description || 'Failed to fetch fasyankes list');
+  } catch (error: unknown) {
+    throw new Error(extractApiErrorMessage(error, 'Failed to fetch fasyankes list'));
   }
 }
 
@@ -33,8 +33,8 @@ export async function getFasyankesDetail(healthFacilityId: string): Promise<Fasy
     const res = await axios.get(`${BASE_URL}/healthFacility/get-health-facility-detail/${healthFacilityId}`);
     const response = handleResponse(res.data);
     return response.data as FasyankesModel;
-  } catch (error: any) {
-    throw new Error(error?.response?.data?.data?.description || 'Failed to fetch fasyankes detail');
+  } catch (error: unknown) {
+    throw new Error(extractApiErrorMessage(error, 'Failed to fetch fasyankes detail'));
   }
 }
 
@@ -43,8 +43,8 @@ export async function createFasyankes(data: FasyankesFormSchema): Promise<Fasyan
     const res = await axios.post(`${BASE_URL}/healthFacility/create-new-health-facility`, data);
     const response = handleResponse(res.data);
     return response.data as FasyankesModel;
-  } catch (error: any) {
-    throw new Error(error?.response?.data?.data?.description || 'Failed to create fasyankes');
+  } catch (error: unknown) {
+    throw new Error(extractApiErrorMessage(error, 'Failed to create fasyankes'));
   }
 }
 
@@ -53,8 +53,8 @@ export async function updateFasyankes(healthFacilityId: string, data: FasyankesF
     const res = await axios.put(`${BASE_URL}/healthFacility/update-health-facility/${healthFacilityId}`, data);
     const response = handleResponse(res.data);
     return response.data as FasyankesModel;
-  } catch (error: any) {
-    throw new Error(error?.response?.data?.data?.description || 'Failed to update fasyankes');
+  } catch (error: unknown) {
+    throw new Error(extractApiErrorMessage(error, 'Failed to update fasyankes'));
   }
 }
 
@@ -63,7 +63,7 @@ export async function deleteFasyankes(healthFacilityId: string): Promise<Fasyank
     const res = await axios.delete(`${BASE_URL}/healthFacility/delete-health-facility/${healthFacilityId}`);
     const response = handleResponse(res.data);
     return response.data as FasyankesModel;
-  } catch (error: any) {
-    throw new Error(error?.response?.data?.data?.description || 'Failed to delete fasyankes');
+  } catch (error: unknown) {
+    throw new Error(extractApiErrorMessage(error, 'Failed to delete fasyankes'));
   }
 }
