@@ -1,6 +1,5 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
   async redirects() {
     return [
@@ -11,10 +10,8 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  // Ensure proper handling of trailing slashes
   trailingSlash: false,
-  // Configure output for Vercel
   output: 'standalone',
 };
 
-export default nextConfig;
+module.exports = nextConfig; 
