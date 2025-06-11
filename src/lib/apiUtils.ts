@@ -4,7 +4,7 @@
  * @returns The processed response data
  * @throws Error - If the response indicates an error
  */
-export function handleResponse<T = any>(response: ApiResponse<T>): ApiResponse<T> {
+export function handleResponse<T = unknown>(response: ApiResponse<T>): ApiResponse<T> {
   if (response.status === 'error') {
     throw new Error(response.data.description);
   }
@@ -49,7 +49,7 @@ export function createErrorResponse(errorType: string | null, description: strin
  * @param code - HTTP status code
  * @returns Standardized success response
  */
-export function createSuccessResponse<T = any>(data: T, message: string, code = 200) {
+export function createSuccessResponse<T = unknown>(data: T, message: string, code = 200) {
   return {
     status: 'success' as const,
     code,
@@ -59,7 +59,7 @@ export function createSuccessResponse<T = any>(data: T, message: string, code = 
 }
 
 // Types
-export type ApiResponse<T = any> =
+export type ApiResponse<T = unknown> =
   | {
       status: 'success';
       code: number;

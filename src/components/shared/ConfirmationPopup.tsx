@@ -33,7 +33,13 @@ export const ConfirmationPopup: React.FC<ConfirmationPopupProps> = ({
     <div className="w-[420px] rounded-2xl shadow-xl bg-white overflow-hidden flex flex-col">
       {/* Image section */}
       <div className={`flex items-center justify-center h-36 ${imageBackground}`}>
-        <Image src={imageAddress} alt="Popup Illustration" className="h-30 w-30 object-contain" />
+        <Image 
+          src={imageAddress} 
+          alt="Popup Illustration" 
+          className="h-30 w-30 object-contain" 
+          width={120}
+          height={120}
+        />
       </div>
       {/* Content section */}
       <div className="flex flex-col items-center px-6 py-6 bg-white">
