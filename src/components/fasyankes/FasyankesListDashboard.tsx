@@ -10,11 +10,13 @@ import { fasyankesColumns } from "@/schemas/fasyankes";
 export default function FasyankesListDashboard() {
   const [data, setData] = useState<FasyankesModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [numberOfFasyankes, setNumberOfFasyankes] = useState(0);
   
   useEffect(() => {
     const fetchData = async () => {
       const data = await getFasyankesList();
       setData(data as FasyankesModel[]);
+      setNumberOfFasyankes(data.length);
       setIsLoading(false);
     };
     fetchData();
@@ -34,7 +36,7 @@ export default function FasyankesListDashboard() {
       <div className="flex items-center gap-4">
         <Image src="/icons/create-account-icon.svg" alt="Create Account Icon" width={60} height={60} />
         <div>
-          <div className="text-base font-semibold text-slate-800">Anda telah mendaftarkan 5 Fasyankes</div>
+          <div className="text-base font-semibold text-slate-800">Anda telah mendaftarkan {numberOfFasyankes} Fasyankes</div>
           <div className="text-sm text-slate-500 mt-1">Buat akun pengguna baru untuk fasyankes pengguna layanan Oculab</div>
         </div>
       </div>
