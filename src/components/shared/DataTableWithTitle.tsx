@@ -91,7 +91,7 @@ export function DataTableWithTitle<TData, TValue>({
           />
           <LucideSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
         </div>
-        <button className="bg-purple-500 hover:bg-purple-600 text-white rounded-lg px-4 py-2 font-semibold text-xs transition-colors duration-200 flex items-center gap-2">
+        <button className="bg-purple-500 hover:bg-purple-600 text-white rounded-lg px-4 py-2 font-semibold text-xs transition-colors duration-200 flex items-center gap-2" hidden>
           <LucideFilter className="w-5 h-5" />
           <span>Filter</span>
         </button>
