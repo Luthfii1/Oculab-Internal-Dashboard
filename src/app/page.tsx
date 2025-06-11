@@ -10,7 +10,7 @@ export default function Home() {
     if (window.location.pathname === '/') {
       router.replace('/dashboard');
     }
-  }, []);
+  }, [router]);
 
   return null;
 }

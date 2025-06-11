@@ -15,10 +15,6 @@ const nextConfig: NextConfig = {
   trailingSlash: false,
   // Configure output for Vercel
   output: 'standalone',
-  // Add experimental features for better performance
-  experimental: {
-    optimizeCss: true,
-  },
 };
 
 export default nextConfig;
