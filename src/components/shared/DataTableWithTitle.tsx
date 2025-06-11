@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import { Search as LucideSearch, Filter as LucideFilter, ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from './DataTable';
 
@@ -31,7 +29,6 @@ export function DataTableWithTitle<TData, TValue>({
 }: DataTableWithTitleProps<TData, TValue>) {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState<TData[]>([]);
 

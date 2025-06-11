@@ -9,7 +9,7 @@ import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';
 import { RotateCcw, UserCheck } from 'lucide-react';
 import { ConfirmationPopup } from '../shared/ConfirmationPopup';
-import { FasyankesFormSchema, fasyankesFormSchema, FasyankesType, provinceOptions, typeOptions } from '@/schemas/fasyankes';
+import { FasyankesFormSchema, fasyankesFormSchema, provinceOptions, typeOptions } from '@/schemas/fasyankes';
 
 interface FasyankesFormProps {
   defaultValues?: Partial<FasyankesFormSchema>;
