@@ -12,6 +12,30 @@ export interface AnalyticsListModel {
     province: Province;
 }
 
+// interface for analytics detail model
+export interface AnalyticsDetailModel {
+    _id: string;
+    analysisId: string;
+    fasyankesName: string;
+    status: AnalyticsType;
+    analysisTime: string;
+    analysisDate: string;
+    province: Province;
+    finalResultInterpretation: string;
+    finalResultDescription: string;
+    systemResultInterpretation: string;
+    systemResultDescription: string;
+    dpjpName: string;
+    atlmName: string;
+    goalExamination: string;
+    typeExamination: string;
+    patientName: string;
+    patientNIK: string;
+    patientBirthDate: string;
+    patientGender: string;
+    patientBPJS?: string;
+}
+
 // enum for analytics type
 export enum AnalyticsType {
     PEMERIKSAAN = "Sedang Berlangsung",
