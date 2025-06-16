@@ -1,21 +1,11 @@
 'use client';
 
-import { ConfirmationPopup } from '@/components/shared/ConfirmationPopup';
-import { ChevronLeft, Hospital, Trash2, FilePenLine } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
-import { useState } from 'react';
-import { handleError } from '@/lib/apiUtils';
-import { useToast, ToastType } from '../shared/ToastContext';
-import { useRouter } from 'next/navigation';
 import { AnalyticsDetailModel, AnalyticsType } from '@/schemas/analytics/model';
 import Image from 'next/image';
 
 export default function AnalyticsDetail({ analyticsDetailData }: { analyticsDetailData: AnalyticsDetailModel }) {
-  const [showConfirm, setShowConfirm] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const { showToast } = useToast();
-  const router = useRouter();
-
   return (
     <div className="w-full mt-8 mx-auto p-0">
       {/* Header */}
