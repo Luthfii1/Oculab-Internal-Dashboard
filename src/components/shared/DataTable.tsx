@@ -8,7 +8,7 @@ import {
   Cell,
   TableMeta,
 } from "@tanstack/react-table";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -24,6 +24,8 @@ export function DataTable<TData, TValue>({
   isLoading,
 }: DataTableProps<TData, TValue>) {
   const router = useRouter();
+  const pathname = usePathname();
+  const basePath = pathname.split('/')[1];
   const table = useReactTable({
     data,
     columns,
@@ -68,7 +70,7 @@ export function DataTable<TData, TValue>({
               <tr
                 key={row.id}
                 className="border-b border-slate-100 hover:bg-slate-50 hover:cursor-pointer"
-                onClick={() => router.push(`/fasyankes/${(row.original as unknown as { _id: string })._id}`)}
+                onClick={() => router.push(`/${basePath}/${(row.original as { _id: string })._id}`)}
               >
               {row.getVisibleCells().map((cell: Cell<TData, unknown>) => (
                 <td key={cell.id} className="py-2 px-3 text-xs text-slate-500">
