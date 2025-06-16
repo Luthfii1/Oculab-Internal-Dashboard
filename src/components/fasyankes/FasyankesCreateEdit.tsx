@@ -4,7 +4,7 @@ import { FasyankesForm } from './FasyankesForm';
 import { FasyankesFormSchema } from '@/schemas/fasyankes';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { createFasyankes, updateFasyankes } from '@/api/FasyankesApis';
+import { createFasyankes, updateFasyankes } from '@/api/fasyankes/FasyankesApis';
 import { useRouter } from 'next/navigation';
 import { useToast, ToastType } from '../shared/ToastContext';
 import { handleError } from '@/lib/apiUtils';

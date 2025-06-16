@@ -2,7 +2,7 @@
 import Link from "next/link";
 import DataTableWithTitle from "../shared/DataTableWithTitle";
 import Image from "next/image";
-import { getFasyankesList } from "@/api/FasyankesApis";
+import { getFasyankesList } from "@/api/fasyankes/FasyankesApis";
 import { useEffect, useState } from "react";
 import { FasyankesModel } from "@/schemas/fasyankes";
 import { fasyankesColumns } from "@/schemas/fasyankes";

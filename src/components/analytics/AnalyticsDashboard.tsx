@@ -1,26 +1,24 @@
 'use client';
-import Link from "next/link";
 import DataTableWithTitle from "../shared/DataTableWithTitle";
 import Image from "next/image";
-import { getFasyankesList } from "@/api/FasyankesApis";
 import { useEffect, useState } from "react";
-import { FasyankesModel } from "@/schemas/fasyankes";
-import { fasyankesColumns } from "@/schemas/fasyankes";
+import { analyticsColumns, AnalyticsListModel } from "@/schemas/analytics/model";
+import { getTimeAnalyticsList } from "@/api/analytics/AnalyticsApis";
 
 export default function AnalyticsDashboard() {
-//   const [data, setData] = useState<FasyankesModel[]>([]);
+  const [data, setData] = useState<AnalyticsListModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-//   const [numberOfFasyankes, setNumberOfFasyankes] = useState(0);
   
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       const data = await getFasyankesList();
-//       setData(data as FasyankesModel[]);
-//       setNumberOfFasyankes(data.length);
-//       setIsLoading(false);
-//     };
-//     fetchData();
-//   }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getTimeAnalyticsList();
+      console.log("data analytics:", data);
+      
+      setData(data as AnalyticsListModel[]);
+      setIsLoading(false);
+    };
+    fetchData();
+  }, []);
   
   return (
   <div className="W-full mt-8 mx-auto p-0">
@@ -77,13 +75,13 @@ export default function AnalyticsDashboard() {
     </div>
 
     {/* Data Table with Title */}
-    {/* <DataTableWithTitle
-      title="Daftar Fasyankes"
+    <DataTableWithTitle
+      title="Daftar Pemeriksaan"
       icon={<Image src="/icons/list-fasyanken-icon.svg" alt="List Fasyanken Icon" width={40} height={40} />}
-      columns={fasyankesColumns}
+      columns={analyticsColumns}
       data={data}
       isLoading={isLoading}
-    /> */}
+    />
   </div>
   );
 }

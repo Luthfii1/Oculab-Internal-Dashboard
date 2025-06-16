@@ -5,7 +5,7 @@ import { ChevronLeft, Hospital, Trash2, FilePenLine } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { FasyankesModel } from '@/schemas/fasyankes';
-import { deleteFasyankes } from '@/api/FasyankesApis';
+import { deleteFasyankes } from '@/api/fasyankes/FasyankesApis';
 import { handleError } from '@/lib/apiUtils';
 import { useToast, ToastType } from '../shared/ToastContext';
 import { useRouter } from 'next/navigation';

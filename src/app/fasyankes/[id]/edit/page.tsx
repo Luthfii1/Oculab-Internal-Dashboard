@@ -1,4 +1,4 @@
-import { getFasyankesDetail } from '@/api/FasyankesApis';
+import { getFasyankesDetail } from '@/api/fasyankes/FasyankesApis';
 import FasyankesCreateEdit from '@/components/fasyankes/FasyankesCreateEdit';
 
 export default async function EditFasyankesPage({ params }: { params: Promise<{ id: string }> }) {

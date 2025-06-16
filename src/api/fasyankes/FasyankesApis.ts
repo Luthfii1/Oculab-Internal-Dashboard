@@ -2,11 +2,7 @@ import axios from 'axios';
 import { getFasyankesDetailDummy, getFasyankesListDummy } from './dummyFasyankes';
 import { FasyankesFormSchema, FasyankesModel } from '@/schemas/fasyankes';
 import { ApiResponse, extractApiErrorMessage, handleResponse } from '@/lib/apiUtils';
-import { API_URL } from '@/lib/constant';
-
-const IS_DEVELOPMENT_MODE = process.env.NEXT_PUBLIC_IS_DEVELOPMENT_MODE === 'true';
-const BASE_URL = IS_DEVELOPMENT_MODE ? 'http://localhost:8080' : API_URL || 'http://localhost:8080';
-const USING_DUMMY_DATA = process.env.NEXT_PUBLIC_USING_DUMMY_DATA === 'true';
+import { BASE_URL, USING_DUMMY_DATA } from '@/lib/constant';
 
 export async function getFasyankesList(): Promise<FasyankesModel[]> {
   try {
