@@ -1,15 +1,17 @@
 import { ColumnDef, CellContext } from "@tanstack/react-table";
-import { PaginationMeta, Province } from "../fasyankes/model";
+import { PaginationMeta } from "../fasyankes/model";
+import { StatusExaminationType } from "../enum/StatusExaminationType";
+import { ProvinceType } from "../enum/ProvinceType";
 
 // interface for analytics model
 export interface AnalyticsListModel {
     examinationId: string;
     slideId: string;
     healthFacilityName: string;
-    examinationStatus: AnalyticsType;
+    examinationStatus: StatusExaminationType;
     totalDuration: string;
     examinationDate: string;
-    healthFacilityProvince: Province;
+    healthFacilityProvince: ProvinceType;
 }
 
 // interface for analytics detail model
@@ -17,10 +19,10 @@ export interface AnalyticsDetailModel {
     examinationId: string;
     slideId: string;
     healthFacilityName: string;
-    examinationStatus: AnalyticsType;
+    examinationStatus: StatusExaminationType;
     totalDuration: string;
     examinationDate: string;
-    healthFacilityProvince: Province;
+    healthFacilityProvince: ProvinceType;
     finalResultInterpretation: string;
     finalResultDescription: string;
     systemResultInterpretation: string;
@@ -36,24 +38,16 @@ export interface AnalyticsDetailModel {
     patientBPJS?: string;
 }
 
-// enum for analytics type
-export enum AnalyticsType {
-    NOTSTARTED = "NOTSTARTED",
-    NEEDVALIDATION = "NEEDVALIDATION",
-    INPROGRESS = "INPROGRESS",
-    FINISHED = "FINISHED"
-}
-
 // Helper function to get display text for analytics status
-export function getAnalyticsStatusDisplay(status: AnalyticsType): string {
+export function getAnalyticsStatusDisplay(status: StatusExaminationType): string {
     switch (status) {
-        case AnalyticsType.NOTSTARTED:
+        case StatusExaminationType.NOTSTARTED:
             return "Belum Dimulai";
-        case AnalyticsType.NEEDVALIDATION:
+        case StatusExaminationType.NEEDVALIDATION:
             return "Menunggu Konfirmasi";
-        case AnalyticsType.INPROGRESS:
+        case StatusExaminationType.INPROGRESS:
             return "Sedang Dianalisa Sistem";
-        case AnalyticsType.FINISHED:
+        case StatusExaminationType.FINISHED:
             return "Selesai";
         default:
             return "Unknown";
@@ -78,7 +72,7 @@ export const analyticsColumns: ColumnDef<AnalyticsListModel>[] = [
         header: 'Status Pemeriksaan', 
         accessorKey: 'examinationStatus',
         cell: (cell: CellContext<AnalyticsListModel, unknown>) => {
-            return getAnalyticsStatusDisplay(cell.getValue() as AnalyticsType);
+            return getAnalyticsStatusDisplay(cell.getValue() as StatusExaminationType);
         }
     },
     { header: 'Waktu Analisis', accessorKey: 'totalDuration' },

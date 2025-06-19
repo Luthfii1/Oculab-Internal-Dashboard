@@ -9,7 +9,9 @@ import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';
 import { RotateCcw, UserCheck } from 'lucide-react';
 import { ConfirmationPopup } from '../shared/ConfirmationPopup';
-import { FasyankesFormSchema, fasyankesFormSchema, provinceOptions, typeOptions } from '@/schemas/fasyankes';
+import { FasyankesFormSchema, fasyankesFormSchema } from '@/schemas/fasyankes';
+import { HealthFacilityType } from '@/schemas/enum/HealthFacilityType';
+import { ProvinceType } from '@/schemas/enum/ProvinceType';
 
 interface FasyankesFormProps {
   defaultValues?: Partial<FasyankesFormSchema>;
@@ -114,8 +116,8 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {typeOptions.map((opt) => (
-                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                  {Object.entries(HealthFacilityType).map(([_, value]) => (
+                    <SelectItem key={value} value={value}>{value}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -167,8 +169,8 @@ export const FasyankesForm: React.FC<FasyankesFormProps> = ({
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {provinceOptions.map((opt) => (
-                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                  {Object.entries(ProvinceType).map(([_, value]) => (
+                    <SelectItem key={value} value={value}>{value}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>

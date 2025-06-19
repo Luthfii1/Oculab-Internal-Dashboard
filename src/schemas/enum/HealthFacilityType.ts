@@ -1,0 +1,8 @@
+export enum HealthFacilityType {
+    RUMAHSAKIT = "RUMAH SAKIT",
+    PUSKESMAS = "PUSKESMAS",
+    KLINIK = "KLINIK",
+    PRAKTIKDOKTER = "PRAKTIK DOKTER",
+    APOTEK = "APOTEK",
+    LABORATORIUM = "LABORATORIUM",
+}

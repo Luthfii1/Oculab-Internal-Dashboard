@@ -2,8 +2,9 @@
 
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
-import { AnalyticsDetailModel, AnalyticsType, getAnalyticsStatusDisplay } from '@/schemas/analytics/model';
+import { AnalyticsDetailModel, getAnalyticsStatusDisplay } from '@/schemas/analytics/model';
 import Image from 'next/image';
+import { StatusExaminationType } from '@/schemas/enum/StatusExaminationType';
 
 export default function AnalyticsDetail({ analyticsDetailData }: { analyticsDetailData: AnalyticsDetailModel }) {
   return (
@@ -17,10 +18,10 @@ export default function AnalyticsDetail({ analyticsDetailData }: { analyticsDeta
         <div className="ml-auto flex items-center gap-2">
           <span className="text-slate-400 font-medium">Status Pemeriksaan</span>
           <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-            analyticsDetailData.examinationStatus === AnalyticsType.NOTSTARTED ? 'bg-slate-100 text-slate-700' :
-            analyticsDetailData.examinationStatus === AnalyticsType.NEEDVALIDATION ? 'bg-orange-100 text-orange-700' :
-            analyticsDetailData.examinationStatus === AnalyticsType.INPROGRESS ? 'bg-purple-100 text-purple-700' :
-            analyticsDetailData.examinationStatus === AnalyticsType.FINISHED ? 'bg-green-100 text-green-700' :
+            analyticsDetailData.examinationStatus === StatusExaminationType.NOTSTARTED ? 'bg-slate-100 text-slate-700' :
+            analyticsDetailData.examinationStatus === StatusExaminationType.NEEDVALIDATION ? 'bg-orange-100 text-orange-700' :
+            analyticsDetailData.examinationStatus === StatusExaminationType.INPROGRESS ? 'bg-purple-100 text-purple-700' :
+            analyticsDetailData.examinationStatus === StatusExaminationType.FINISHED ? 'bg-green-100 text-green-700' :
             'bg-slate-100 text-slate-700'
           }`}>
             {getAnalyticsStatusDisplay(analyticsDetailData.examinationStatus)}
@@ -37,7 +38,7 @@ export default function AnalyticsDetail({ analyticsDetailData }: { analyticsDeta
             <Image src="/images/book.svg" alt="icon" width={24} height={24} />
             Informasi Detail Pemeriksaan
           </div>
-          <div className="text-2xl font-bold text-purple-700 tracking-wide">{analyticsDetailData.examinationId}</div>
+          <div className="text-2xl font-bold text-purple-700 tracking-wide">{analyticsDetailData.slideId}</div>
         </div>
         {/* Waktu Analisis */}
         <div className="flex flex-col gap-2 min-w-[180px]">

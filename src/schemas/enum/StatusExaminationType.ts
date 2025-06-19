@@ -1,0 +1,6 @@
+export enum StatusExaminationType {
+    NOTSTARTED = "NOTSTARTED",
+    NEEDVALIDATION = "NEEDVALIDATION",
+    INPROGRESS = "INPROGRESS",
+    FINISHED = "FINISHED"
+}

@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { FasyankesType, Province } from './model';
+import { ProvinceType } from '../enum/ProvinceType';
+import { HealthFacilityType } from '../enum/HealthFacilityType';
 
 export const fasyankesFormSchema = z.object({
   _id: z.string().optional(),
@@ -15,12 +16,12 @@ export const fasyankesFormSchema = z.object({
 
 export type FasyankesFormSchema = z.infer<typeof fasyankesFormSchema>;
 
-export const typeOptions = Object.entries(FasyankesType).map(([_, value]) => ({
+export const typeOptions = Object.entries(HealthFacilityType).map(([_, value]) => ({
   value,
   label: value
 })); 
 
-export const provinceOptions = Object.entries(Province).map(([_, value]) => ({
+export const provinceOptions = Object.entries(ProvinceType).map(([_, value]) => ({
   value,
   label: value
 })); 

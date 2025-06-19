@@ -2,9 +2,10 @@
 import DataTableWithTitle from "../shared/DataTableWithTitle";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { analyticsColumns, AnalyticsListModel, AnalyticsType } from "@/schemas/analytics/model";
+import { analyticsColumns, AnalyticsListModel } from "@/schemas/analytics/model";
 import { getTimeAnalyticsList } from "@/api/analytics/AnalyticsApis";
 import { formatDuration } from "@/lib/utils";
+import { StatusExaminationType } from "@/schemas/enum/StatusExaminationType";
 
 export default function AnalyticsDashboard() {
   const [data, setData] = useState<AnalyticsListModel[]>([]);
@@ -28,7 +29,7 @@ export default function AnalyticsDashboard() {
 
   // create a function to calculate the average duration if only the status is finished and the total duration is not 0 
   const calculateAverageDuration = (data: AnalyticsListModel[]) => {
-    const finishedData = data.filter(item => item.examinationStatus === AnalyticsType.FINISHED && item.totalDuration !== "00:00:00");
+    const finishedData = data.filter(item => item.examinationStatus === StatusExaminationType.FINISHED && item.totalDuration !== "00:00:00");
     if (finishedData.length === 0) {
       return "00:00:00";
     }
@@ -45,9 +46,9 @@ export default function AnalyticsDashboard() {
 
   // create a function to count the number of notstarted, inprogress, needvalidation, and finished
   const countStatus = (data: AnalyticsListModel[]) => {
-    setNotStarted(data.filter(item => item.examinationStatus === AnalyticsType.NOTSTARTED).length);
-    setInProgress(data.filter(item => item.examinationStatus === AnalyticsType.INPROGRESS || item.examinationStatus === AnalyticsType.NEEDVALIDATION).length);
-    setFinished(data.filter(item => item.examinationStatus === AnalyticsType.FINISHED).length);
+    setNotStarted(data.filter(item => item.examinationStatus === StatusExaminationType.NOTSTARTED).length);
+    setInProgress(data.filter(item => item.examinationStatus === StatusExaminationType.INPROGRESS || item.examinationStatus === StatusExaminationType.NEEDVALIDATION).length);
+    setFinished(data.filter(item => item.examinationStatus === StatusExaminationType.FINISHED).length);
   }
   
   return (
