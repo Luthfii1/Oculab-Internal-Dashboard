@@ -11,7 +11,7 @@ export async function getTimeAnalyticsList(): Promise<AnalyticsListModel[]> {
       const response = handleResponse(res as unknown as ApiResponse<AnalyticsListModel[]>);
       return response.data as AnalyticsListModel[];
     }
-    const res = await axios.get(`${BASE_URL}/healthFacility/get-all-health-facilities`);
+    const res = await axios.get(`${BASE_URL}/examinationAnalysisDuration/get-aggregated-analysis-durations`);
     const response = handleResponse(res.data);
     return response.data as AnalyticsListModel[];
   } catch (error: unknown) {

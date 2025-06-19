@@ -10,6 +10,23 @@ import {
 } from "@tanstack/react-table";
 import { useRouter, usePathname } from "next/navigation";
 
+// Define a type for objects that can have either _id or examinationId
+type RowWithId = {
+  _id?: string;
+  examinationId?: string;
+};
+
+// Type guard function to determine which ID to use
+function getRowId(row: RowWithId): string {
+  if ('_id' in row && row._id) {
+    return row._id;
+  }
+  if ('examinationId' in row && row.examinationId) {
+    return row.examinationId;
+  }
+  return '';
+}
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -70,10 +87,15 @@ export function DataTable<TData, TValue>({
               <tr
                 key={row.id}
                 className="border-b border-slate-100 hover:bg-slate-50 hover:cursor-pointer"
-                onClick={() => router.push(`/${basePath}/${(row.original as { _id: string })._id}`)}
+                onClick={() => {
+                  const id = getRowId(row.original as RowWithId);
+                  if (id) {
+                    router.push(`/${basePath}/${id}`);
+                  }
+                }}
               >
-              {row.getVisibleCells().map((cell: Cell<TData, unknown>) => (
-                <td key={cell.id} className="py-2 px-3 text-xs text-slate-500">
+                {row.getVisibleCells().map((cell: Cell<TData, unknown>) => (
+                  <td key={cell.id} className="py-2 px-3 text-xs text-slate-500">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}

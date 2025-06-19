@@ -3,24 +3,24 @@ import { PaginationMeta, Province } from "../fasyankes/model";
 
 // interface for analytics model
 export interface AnalyticsListModel {
-    _id: string;
-    analysisId: string;
-    fasyankesName: string;
-    status: AnalyticsType;
-    analysisTime: string;
-    analysisDate: string;
-    province: Province;
+    examinationId: string;
+    slideId: string;
+    healthFacilityName: string;
+    examinationStatus: AnalyticsType;
+    totalDuration: string;
+    examinationDate: string;
+    healthFacilityProvince: Province;
 }
 
 // interface for analytics detail model
 export interface AnalyticsDetailModel {
-    _id: string;
-    analysisId: string;
-    fasyankesName: string;
-    status: AnalyticsType;
-    analysisTime: string;
-    analysisDate: string;
-    province: Province;
+    examinationId: string;
+    slideId: string;
+    healthFacilityName: string;
+    examinationStatus: AnalyticsType;
+    totalDuration: string;
+    examinationDate: string;
+    healthFacilityProvince: Province;
     finalResultInterpretation: string;
     finalResultDescription: string;
     systemResultInterpretation: string;
@@ -56,10 +56,10 @@ export const analyticsColumns: ColumnDef<AnalyticsListModel>[] = [
           return (page - 1) * pageSize + cell.row.index + 1;
         },
     },
-    { header: 'ID Pemeriksaan', accessorKey: 'analysisId' },
-    { header: 'Nama Fasyankes', accessorKey: 'fasyankesName' },
-    { header: 'Status Pemeriksaan', accessorKey: 'status' },
-    { header: 'Waktu Analisis', accessorKey: 'analysisTime' },
-    { header: 'Provinsi', accessorKey: 'province' },
-    { header: 'Tanggal Dibuat', accessorKey: 'analysisDate' },
+    { header: 'ID Pemeriksaan', accessorKey: 'slideId' },
+    { header: 'Nama Fasyankes', accessorKey: 'healthFacilityName' },
+    { header: 'Status Pemeriksaan', accessorKey: 'examinationStatus' },
+    { header: 'Waktu Analisis', accessorKey: 'totalDuration' },
+    { header: 'Provinsi', accessorKey: 'healthFacilityProvince' },
+    { header: 'Tanggal Dibuat', accessorKey: 'examinationDate' },
 ];

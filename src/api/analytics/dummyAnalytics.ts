@@ -5,23 +5,23 @@ import { ApiResponse } from "@/lib/apiUtils";
 export async function getTimeAnalyticsListDummy(): Promise<ApiResponse<AnalyticsListModel[]>> {
     const defaultData = Array.from({ length: 19 }).map((_, i) => ({
         _id: i + 1,
-        analysisId: 'BRN-12345678',
-        fasyankesName: 'Klinik Sehat Sentosa',
-        status: AnalyticsType.BELUM_DIMULAI,
-        analysisTime: '00:10:00',
-        analysisDate: '27/12/2001',
-        province: 'Kalimantan Selatan',
+        slideId: 'BRN-12345678',
+        healthFacilityName: 'Klinik Sehat Sentosa',
+        examinationStatus: AnalyticsType.BELUM_DIMULAI,
+        totalDuration: '00:10:00',
+        examinationDate: '27/12/2001',
+        healthFacilityProvince: 'Kalimantan Selatan',
     }));
 
     // Add one different data for search testing
     const searchTestData = {
         _id: 20,
-        analysisId: 'BRN-0987654',
-        fasyankesName: 'Rumah Sakit Medika Sejahtera',
-        status: AnalyticsType.SELESAI,
-        analysisTime: '00:10:00',
-        analysisDate: '27/12/2001',
-        province: 'Jawa Timur',
+        slideId: 'BRN-0987654',
+        healthFacilityName: 'Rumah Sakit Medika Sejahtera',
+        examinationStatus: AnalyticsType.SELESAI,
+        totalDuration: '00:10:00',
+        examinationDate: '27/12/2001',
+        healthFacilityProvince: 'Jawa Timur',
     };
 
     return {
@@ -35,12 +35,12 @@ export async function getTimeAnalyticsListDummy(): Promise<ApiResponse<Analytics
 export async function getAnalyticsDetailDummy(): Promise<ApiResponse<AnalyticsDetailModel>> {
     const data = {
         _id: '1',
-        analysisId: 'BRN-12345678',
-        fasyankesName: 'Klinik Sehat Sentosa',
-        status: AnalyticsType.SELESAI,
-        analysisTime: '00:10:00',
-        analysisDate: '27/12/2001',
-        province: 'Kalimantan Selatan',
+        slideId: 'BRN-12345678',
+        healthFacilityName: 'Klinik Sehat Sentosa',
+        examinationStatus: AnalyticsType.SELESAI,
+        totalDuration: '00:10:00',
+        examinationDate: '27/12/2001',
+        healthFacilityProvince: 'Kalimantan Selatan',
         finalResultInterpretation: 'Negatif',
         finalResultDescription: 'Tidak ditemukan BTA dari 100 gambar lapangan pandang',
         systemResultInterpretation: 'Scanty',

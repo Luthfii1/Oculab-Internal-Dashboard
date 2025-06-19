@@ -17,12 +17,12 @@ export default function AnalyticsDetail({ analyticsDetailData }: { analyticsDeta
         <div className="ml-auto flex items-center gap-2">
           <span className="text-slate-400 font-medium">Status Pemeriksaan</span>
           <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-            analyticsDetailData.status === AnalyticsType.PEMERIKSAAN ? 'bg-orange-100 text-orange-700' :
-            analyticsDetailData.status === AnalyticsType.SELESAI ? 'bg-green-100 text-green-700' :
-            analyticsDetailData.status === AnalyticsType.BELUM_DIMULAI ? 'bg-slate-100 text-slate-700' :
+            analyticsDetailData.examinationStatus === AnalyticsType.PEMERIKSAAN ? 'bg-orange-100 text-orange-700' :
+            analyticsDetailData.examinationStatus === AnalyticsType.SELESAI ? 'bg-green-100 text-green-700' :
+            analyticsDetailData.examinationStatus === AnalyticsType.BELUM_DIMULAI ? 'bg-slate-100 text-slate-700' :
             'bg-slate-100 text-slate-700'
           }`}>
-            {analyticsDetailData.status}
+            {analyticsDetailData.examinationStatus}
           </span>
         </div>
       </div>
@@ -36,7 +36,7 @@ export default function AnalyticsDetail({ analyticsDetailData }: { analyticsDeta
             <Image src="/images/book.svg" alt="icon" width={24} height={24} />
             Informasi Detail Pemeriksaan
           </div>
-          <div className="text-2xl font-bold text-purple-700 tracking-wide">{analyticsDetailData.analysisId}</div>
+          <div className="text-2xl font-bold text-purple-700 tracking-wide">{analyticsDetailData.examinationId}</div>
         </div>
         {/* Waktu Analisis */}
         <div className="flex flex-col gap-2 min-w-[180px]">
@@ -44,7 +44,7 @@ export default function AnalyticsDetail({ analyticsDetailData }: { analyticsDeta
             <Image src="/icons/time-color-icon.svg" alt="icon" width={24} height={24} />
             Waktu Analisis
           </div>
-          <div className="text-2xl font-bold text-purple-700 tracking-wide">{analyticsDetailData.analysisTime}</div>
+          <div className="text-2xl font-bold text-purple-700 tracking-wide">{analyticsDetailData.totalDuration}</div>
         </div>
         {/* Nama Fasyankes */}
         <div className="flex flex-col gap-2 min-w-[260px]">
@@ -52,7 +52,7 @@ export default function AnalyticsDetail({ analyticsDetailData }: { analyticsDeta
             <Image src="/images/hospital.svg" alt="icon" width={24} height={24} />
             Nama Fasyankes
           </div>
-          <div className="text-2xl font-bold text-purple-700 tracking-wide">{analyticsDetailData.fasyankesName}</div>
+          <div className="text-2xl font-bold text-purple-700 tracking-wide">{analyticsDetailData.healthFacilityName}</div>
         </div>
       </div>
 
@@ -61,12 +61,12 @@ export default function AnalyticsDetail({ analyticsDetailData }: { analyticsDeta
         {/* Provinsi */}
         <div className="flex flex-col items-start gap-2 text-slate-500 text-sm">
           <span className="font-medium">Provinsi</span>
-          <span className="text-slate-900 font-semibold">{analyticsDetailData.province}</span>
+          <span className="text-slate-900 font-semibold">{analyticsDetailData.healthFacilityProvince}</span>
         </div>
         {/* Tanggal dibuat */}
         <div className="flex flex-col items-start gap-2 text-slate-500 text-sm">
           <span className="font-medium">Tanggal dibuat</span>
-          <span className="text-slate-900 font-semibold">{analyticsDetailData.analysisDate}</span>
+          <span className="text-slate-900 font-semibold">{analyticsDetailData.examinationDate}</span>
         </div>
       </div>
 
@@ -116,7 +116,7 @@ export default function AnalyticsDetail({ analyticsDetailData }: { analyticsDeta
               <span className="font-semibold text-slate-800">Detail Sediaan</span>
             </div>
             <div className="text-slate-500 text-xs mb-1">ID Sediaan</div>
-            <div className="text-slate-700 text-sm mb-2">{analyticsDetailData._id}</div>
+            <div className="text-slate-700 text-sm mb-2">{analyticsDetailData.slideId}</div>
             <div className="text-slate-500 text-xs mb-1">Tujuan Pemeriksaan</div>
             <div className="text-slate-700 text-sm mb-2">{analyticsDetailData.goalExamination}</div>
             <div className="text-slate-500 text-xs mb-1">Jenis Sediaan</div>
