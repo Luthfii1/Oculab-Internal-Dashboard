@@ -7,6 +7,7 @@ import { StatusExaminationType } from "@/schemas/enum/StatusExaminationType";
 import { ExaminationModel } from "@/schemas/examination/model";
 
 export async function getExaminationDetailDummy(id: string): Promise<ApiResponse<ExaminationModel>> {
+    console.log('id exam: ', id);
     const data = {
         _id: '1',
         goal: ExaminationGoalType.SCREENING,
