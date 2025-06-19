@@ -2,7 +2,7 @@
 
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
-import { AnalyticsDetailModel, AnalyticsType } from '@/schemas/analytics/model';
+import { AnalyticsDetailModel, AnalyticsType, getAnalyticsStatusDisplay } from '@/schemas/analytics/model';
 import Image from 'next/image';
 
 export default function AnalyticsDetail({ analyticsDetailData }: { analyticsDetailData: AnalyticsDetailModel }) {
@@ -17,12 +17,13 @@ export default function AnalyticsDetail({ analyticsDetailData }: { analyticsDeta
         <div className="ml-auto flex items-center gap-2">
           <span className="text-slate-400 font-medium">Status Pemeriksaan</span>
           <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-            analyticsDetailData.examinationStatus === AnalyticsType.PEMERIKSAAN ? 'bg-orange-100 text-orange-700' :
-            analyticsDetailData.examinationStatus === AnalyticsType.SELESAI ? 'bg-green-100 text-green-700' :
-            analyticsDetailData.examinationStatus === AnalyticsType.BELUM_DIMULAI ? 'bg-slate-100 text-slate-700' :
+            analyticsDetailData.examinationStatus === AnalyticsType.NOTSTARTED ? 'bg-slate-100 text-slate-700' :
+            analyticsDetailData.examinationStatus === AnalyticsType.NEEDVALIDATION ? 'bg-orange-100 text-orange-700' :
+            analyticsDetailData.examinationStatus === AnalyticsType.INPROGRESS ? 'bg-purple-100 text-purple-700' :
+            analyticsDetailData.examinationStatus === AnalyticsType.FINISHED ? 'bg-green-100 text-green-700' :
             'bg-slate-100 text-slate-700'
           }`}>
-            {analyticsDetailData.examinationStatus}
+            {getAnalyticsStatusDisplay(analyticsDetailData.examinationStatus)}
           </span>
         </div>
       </div>

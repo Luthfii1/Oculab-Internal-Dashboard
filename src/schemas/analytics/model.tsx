@@ -38,10 +38,26 @@ export interface AnalyticsDetailModel {
 
 // enum for analytics type
 export enum AnalyticsType {
-    PEMERIKSAAN = "Sedang Berlangsung",
-    BELUM_DIMULAI = "Belum Dimulai",
-    SELESAI = "Selesai",
-    MENUNGGU_KONFIRMASI = "Menunggu Konfirmasi"
+    NOTSTARTED = "NOTSTARTED",
+    NEEDVALIDATION = "NEEDVALIDATION",
+    INPROGRESS = "INPROGRESS",
+    FINISHED = "FINISHED"
+}
+
+// Helper function to get display text for analytics status
+export function getAnalyticsStatusDisplay(status: AnalyticsType): string {
+    switch (status) {
+        case AnalyticsType.NOTSTARTED:
+            return "Belum Dimulai";
+        case AnalyticsType.NEEDVALIDATION:
+            return "Menunggu Konfirmasi";
+        case AnalyticsType.INPROGRESS:
+            return "Sedang Dianalisa Sistem";
+        case AnalyticsType.FINISHED:
+            return "Selesai";
+        default:
+            return "Unknown";
+    }
 }
 
 // table model for analytics
@@ -58,7 +74,13 @@ export const analyticsColumns: ColumnDef<AnalyticsListModel>[] = [
     },
     { header: 'ID Pemeriksaan', accessorKey: 'slideId' },
     { header: 'Nama Fasyankes', accessorKey: 'healthFacilityName' },
-    { header: 'Status Pemeriksaan', accessorKey: 'examinationStatus' },
+    { 
+        header: 'Status Pemeriksaan', 
+        accessorKey: 'examinationStatus',
+        cell: (cell: CellContext<AnalyticsListModel, unknown>) => {
+            return getAnalyticsStatusDisplay(cell.getValue() as AnalyticsType);
+        }
+    },
     { header: 'Waktu Analisis', accessorKey: 'totalDuration' },
     { header: 'Provinsi', accessorKey: 'healthFacilityProvince' },
     { header: 'Tanggal Dibuat', accessorKey: 'examinationDate' },
