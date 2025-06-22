@@ -138,10 +138,12 @@ export default function AnalyticsDetail({
             </div>
             <div className="border border-blue-200 rounded-lg p-3 mb-2">
               <span className="text-blue-600 font-bold text-lg">
-                {examinationData.expertResult.finalGrading}
+                {examinationData.expertResult?.finalGrading ||
+                  "Belum Diperiksa"}
               </span>
               <div className="text-slate-700 text-sm mt-1">
-                {examinationData.expertResult.notes}
+                {examinationData.expertResult?.notes ||
+                  "Belum ada catatan dari petugas pemeriksa"}
               </div>
             </div>
           </div>
@@ -160,7 +162,8 @@ export default function AnalyticsDetail({
             </div>
             <div className="border border-red-200 rounded-lg p-3">
               <span className="text-red-500 font-bold text-lg">
-                {examinationData.systemResult.systemGrading}
+                {examinationData.systemResult?.systemGrading ||
+                  "Belum Diperiksa"}
               </span>
               <div className="text-slate-700 text-sm mt-1">
                 TODO: Add description from system result
