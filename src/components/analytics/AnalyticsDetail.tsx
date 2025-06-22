@@ -1,35 +1,54 @@
-'use client';
+"use client";
 
-import { ChevronLeft } from 'lucide-react';
-import Link from 'next/link';
-import { AnalyticsDetailModel, getAnalyticsStatusDisplay } from '@/schemas/analytics/model';
-import Image from 'next/image';
-import { StatusExaminationType } from '@/schemas/enum/StatusExaminationType';
-import { ExaminationModel } from '@/schemas/examination/model';
+import { ChevronLeft } from "lucide-react";
+import Link from "next/link";
+import {
+  AnalyticsDetailModel,
+  getAnalyticsStatusDisplay,
+} from "@/schemas/analytics/model";
+import Image from "next/image";
+import { StatusExaminationType } from "@/schemas/enum/StatusExaminationType";
+import { ExaminationModel } from "@/schemas/examination/model";
 
 interface AnalyticsDetailProps {
   analyticsDetailData: AnalyticsDetailModel;
   examinationData: ExaminationModel;
 }
 
-export default function AnalyticsDetail({ analyticsDetailData, examinationData }: AnalyticsDetailProps) {
+export default function AnalyticsDetail({
+  analyticsDetailData,
+  examinationData,
+}: AnalyticsDetailProps) {
   return (
     <div className="w-full mt-8 mx-auto p-0">
       {/* Header */}
       <div className="flex items-center mb-6">
-        <Link href="/analytics" className="flex items-center text-slate-600 hover:text-purple-600 text-sm font-medium mr-6">
+        <Link
+          href="/analytics"
+          className="flex items-center text-slate-600 hover:text-purple-600 text-sm font-medium mr-6"
+        >
           <ChevronLeft className="w-5 h-5 mr-1" />
           Kembali
         </Link>
         <div className="ml-auto flex items-center gap-2">
           <span className="text-slate-400 font-medium">Status Pemeriksaan</span>
-          <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-            examinationData.statusExamination === StatusExaminationType.NOTSTARTED ? 'bg-slate-100 text-slate-700' :
-            examinationData.statusExamination === StatusExaminationType.NEEDVALIDATION ? 'bg-orange-100 text-orange-700' :
-            examinationData.statusExamination === StatusExaminationType.INPROGRESS ? 'bg-purple-100 text-purple-700' :
-            examinationData.statusExamination === StatusExaminationType.FINISHED ? 'bg-green-100 text-green-700' :
-            'bg-slate-100 text-slate-700'
-          }`}>
+          <span
+            className={`px-3 py-1 rounded-full text-sm font-semibold ${
+              examinationData.statusExamination ===
+              StatusExaminationType.NOTSTARTED
+                ? "bg-slate-100 text-slate-700"
+                : examinationData.statusExamination ===
+                  StatusExaminationType.NEEDVALIDATION
+                ? "bg-orange-100 text-orange-700"
+                : examinationData.statusExamination ===
+                  StatusExaminationType.INPROGRESS
+                ? "bg-purple-100 text-purple-700"
+                : examinationData.statusExamination ===
+                  StatusExaminationType.FINISHED
+                ? "bg-green-100 text-green-700"
+                : "bg-slate-100 text-slate-700"
+            }`}
+          >
             {getAnalyticsStatusDisplay(examinationData.statusExamination)}
           </span>
         </div>
@@ -44,23 +63,39 @@ export default function AnalyticsDetail({ analyticsDetailData, examinationData }
             <Image src="/images/book.svg" alt="icon" width={24} height={24} />
             Informasi Detail Pemeriksaan
           </div>
-          <div className="text-2xl font-bold text-purple-700 tracking-wide">{examinationData.slideId}</div>
+          <div className="text-2xl font-bold text-purple-700 tracking-wide">
+            {examinationData.slideId}
+          </div>
         </div>
         {/* Waktu Analisis */}
         <div className="flex flex-col gap-2 min-w-[180px]">
           <div className="flex items-center gap-2 text-slate-500 text-sm font-medium">
-            <Image src="/icons/time-color-icon.svg" alt="icon" width={24} height={24} />
+            <Image
+              src="/icons/time-color-icon.svg"
+              alt="icon"
+              width={24}
+              height={24}
+            />
             Waktu Analisis
           </div>
-          <div className="text-2xl font-bold text-purple-700 tracking-wide">{analyticsDetailData.totalDuration}</div>
+          <div className="text-2xl font-bold text-purple-700 tracking-wide">
+            {analyticsDetailData.totalExaminationAnalysisDuration}
+          </div>
         </div>
         {/* Nama Fasyankes */}
         <div className="flex flex-col gap-2 min-w-[260px]">
           <div className="flex items-center gap-2 text-slate-500 text-sm font-medium">
-            <Image src="/images/hospital.svg" alt="icon" width={24} height={24} />
+            <Image
+              src="/images/hospital.svg"
+              alt="icon"
+              width={24}
+              height={24}
+            />
             Nama Fasyankes
           </div>
-          <div className="text-2xl font-bold text-purple-700 tracking-wide">{analyticsDetailData.healthFacilityName}</div>
+          <div className="text-2xl font-bold text-purple-700 tracking-wide">
+            {analyticsDetailData.healthFacilityName}
+          </div>
         </div>
       </div>
 
@@ -69,12 +104,16 @@ export default function AnalyticsDetail({ analyticsDetailData, examinationData }
         {/* Provinsi */}
         <div className="flex flex-col items-start gap-2 text-slate-500 text-sm">
           <span className="font-medium">Provinsi</span>
-          <span className="text-slate-900 font-semibold">{analyticsDetailData.healthFacilityProvince}</span>
+          <span className="text-slate-900 font-semibold">
+            {analyticsDetailData.healthFacilityProvince}
+          </span>
         </div>
         {/* Tanggal dibuat */}
         <div className="flex flex-col items-start gap-2 text-slate-500 text-sm">
           <span className="font-medium">Tanggal dibuat</span>
-          <span className="text-slate-900 font-semibold">{examinationData.examinationPlanDate}</span>
+          <span className="text-slate-900 font-semibold">
+            {examinationData.examinationPlanDate}
+          </span>
         </div>
       </div>
 
@@ -83,29 +122,54 @@ export default function AnalyticsDetail({ analyticsDetailData, examinationData }
         {/* Hasil Interpretasi - wider */}
         <div className="col-span-2 bg-white border border-slate-200 rounded-2xl p-6 flex flex-col gap-4">
           <div className="flex items-center gap-2 mb-2">
-            <Image src="/images/checklist.svg" alt="icon" width={20} height={20} />
-            <span className="font-semibold text-slate-800">Hasil Interpretasi</span>
+            <Image
+              src="/images/checklist.svg"
+              alt="icon"
+              width={20}
+              height={20}
+            />
+            <span className="font-semibold text-slate-800">
+              Hasil Interpretasi
+            </span>
           </div>
           <div>
-            <div className="text-xs text-slate-500 font-medium mb-1">Interpretasi Petugas</div>
+            <div className="text-xs text-slate-500 font-medium mb-1">
+              Interpretasi Petugas
+            </div>
             <div className="border border-blue-200 rounded-lg p-3 mb-2">
-              <span className="text-blue-600 font-bold text-lg">{examinationData.expertResult.finalGrading}</span>
-              <div className="text-slate-700 text-sm mt-1">{examinationData.expertResult.notes}</div>
+              <span className="text-blue-600 font-bold text-lg">
+                {examinationData.expertResult.finalGrading}
+              </span>
+              <div className="text-slate-700 text-sm mt-1">
+                {examinationData.expertResult.notes}
+              </div>
             </div>
           </div>
           <div>
-            <div className="text-xs text-slate-500 font-medium mb-1">Interpretasi Sistem</div>
+            <div className="text-xs text-slate-500 font-medium mb-1">
+              Interpretasi Sistem
+            </div>
             <div className="flex items-center gap-2 text-orange-600 text-xs mb-1">
-              <Image src="/images/warning.svg" alt="icon" width={14} height={14} />
+              <Image
+                src="/images/warning.svg"
+                alt="icon"
+                width={14}
+                height={14}
+              />
               Interpretasi sistem bukan merupakan hasil akhir untuk pasien
             </div>
             <div className="border border-red-200 rounded-lg p-3">
-              <span className="text-red-500 font-bold text-lg">{examinationData.systemResult.systemGrading}</span>
-              <div className="text-slate-700 text-sm mt-1">TODO: Add description from system result</div>
+              <span className="text-red-500 font-bold text-lg">
+                {examinationData.systemResult.systemGrading}
+              </span>
+              <div className="text-slate-700 text-sm mt-1">
+                TODO: Add description from system result
+              </div>
             </div>
           </div>
           {/* if the status is finished, show the button to download the pdf */}
-          {examinationData.statusExamination === StatusExaminationType.FINISHED && (
+          {examinationData.statusExamination ===
+            StatusExaminationType.FINISHED && (
             <button className="mt-4 w-full flex items-center justify-center gap-2 bg-purple-50 text-purple-700 font-semibold py-2 rounded-lg hover:bg-purple-100 transition">
               <Image src="/images/file.svg" alt="PDF" width={14} height={14} />
               Lihat PDF
@@ -116,22 +180,43 @@ export default function AnalyticsDetail({ analyticsDetailData, examinationData }
         {/* Petugas Pemeriksaan & Detail Sediaan */}
         <div className="col-span-1 flex flex-col h-full gap-8">
           <div className="bg-white border border-slate-200 rounded-2xl p-6 flex-1 flex flex-col">
-            <div className="font-semibold text-slate-800 mb-2">Petugas Pemeriksaan</div>
-            <div className="text-slate-700 text-sm mb-1">{examinationData.PIC.name}</div>
+            <div className="font-semibold text-slate-800 mb-2">
+              Petugas Pemeriksaan
+            </div>
+            <div className="text-slate-700 text-sm mb-1">
+              {examinationData.PIC.name}
+            </div>
             <div className="text-slate-500 text-xs mb-2">Ditugaskan oleh</div>
-            <div className="text-slate-700 text-sm">{examinationData.DPJP.name}</div>
+            <div className="text-slate-700 text-sm">
+              {examinationData.DPJP.name}
+            </div>
           </div>
           <div className="bg-white border border-slate-200 rounded-2xl p-6 flex-1 flex flex-col">
             <div className="flex items-center gap-2 mb-2">
-              <Image src="/images/file-magnifier.svg" alt="icon" width={14} height={14} />
-              <span className="font-semibold text-slate-800">Detail Sediaan</span>
+              <Image
+                src="/images/file-magnifier.svg"
+                alt="icon"
+                width={14}
+                height={14}
+              />
+              <span className="font-semibold text-slate-800">
+                Detail Sediaan
+              </span>
             </div>
             <div className="text-slate-500 text-xs mb-1">ID Sediaan</div>
-            <div className="text-slate-700 text-sm mb-2">{examinationData.slideId}</div>
-            <div className="text-slate-500 text-xs mb-1">Tujuan Pemeriksaan</div>
-            <div className="text-slate-700 text-sm mb-2">{examinationData.goal}</div>
+            <div className="text-slate-700 text-sm mb-2">
+              {examinationData.slideId}
+            </div>
+            <div className="text-slate-500 text-xs mb-1">
+              Tujuan Pemeriksaan
+            </div>
+            <div className="text-slate-700 text-sm mb-2">
+              {examinationData.goal}
+            </div>
             <div className="text-slate-500 text-xs mb-1">Jenis Sediaan</div>
-            <div className="text-slate-700 text-sm">{examinationData.preparationType}</div>
+            <div className="text-slate-700 text-sm">
+              {examinationData.preparationType}
+            </div>
           </div>
         </div>
 
@@ -142,17 +227,27 @@ export default function AnalyticsDetail({ analyticsDetailData, examinationData }
             <span className="font-semibold text-purple-700">Data Pasien</span>
           </div>
           <div className="text-slate-500 text-xs mb-1">Nama</div>
-          <div className="text-slate-700 text-sm mb-2">{analyticsDetailData.patientName}</div>
+          <div className="text-slate-700 text-sm mb-2">
+            {analyticsDetailData.patientName}
+          </div>
           <div className="text-slate-500 text-xs mb-1">NIK</div>
-          <div className="text-slate-700 text-sm mb-2">{analyticsDetailData.patientNIK}</div>
+          <div className="text-slate-700 text-sm mb-2">
+            {analyticsDetailData.patientNIK}
+          </div>
           <div className="text-slate-500 text-xs mb-1">Tanggal Lahir</div>
-          <div className="text-slate-700 text-sm mb-2">{analyticsDetailData.patientBirthDate}</div>
+          <div className="text-slate-700 text-sm mb-2">
+            {analyticsDetailData.patientDoB}
+          </div>
           <div className="text-slate-500 text-xs mb-1">Jenis Kelamin</div>
-          <div className="text-slate-700 text-sm mb-2">{analyticsDetailData.patientGender}</div>
+          <div className="text-slate-700 text-sm mb-2">
+            {analyticsDetailData.patientSex}
+          </div>
           {analyticsDetailData.patientBPJS && (
             <>
               <div className="text-slate-500 text-xs mb-1">Nomor BPJS</div>
-              <div className="text-slate-700 text-sm">{analyticsDetailData.patientBPJS}</div>
+              <div className="text-slate-700 text-sm">
+                {analyticsDetailData.patientBPJS}
+              </div>
             </>
           )}
         </div>

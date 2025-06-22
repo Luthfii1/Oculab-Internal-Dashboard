@@ -24,8 +24,8 @@ export interface AnalyticsDetailModel {
   expertResultNotes: string;
   picName: string;
   dpjpName: string;
-  healthFacilityName: string;
-  healthFacilityProvince: ProvinceType;
+  healthFacilityName?: string;
+  healthFacilityProvince?: ProvinceType;
   patientName: string;
   patientNIK: string;
   patientDoB: string;
