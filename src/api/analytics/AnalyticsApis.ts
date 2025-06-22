@@ -13,7 +13,6 @@ import {
   handleResponse,
 } from "@/lib/apiUtils";
 import { BASE_URL, USING_DUMMY_DATA } from "@/lib/constant";
-import { log } from "node:console";
 
 export async function getTimeAnalyticsList(): Promise<AnalyticsListModel[]> {
   try {
