@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 
 const DashboardPage = () => {
   return (
@@ -11,7 +10,6 @@ const DashboardPage = () => {
           <h1 className="text-2xl font-bold text-slate-900">Welcome to Dashboard</h1>
         </div>
         
-        <Link className="block text-purple-700 underline" href="/fov-trial">Manage iOS recording methods</Link>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Sample Cards */}
           <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-100">
