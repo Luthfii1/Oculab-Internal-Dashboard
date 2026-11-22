@@ -8,6 +8,7 @@ const Sidebar = () => {
   const pathname = usePathname();
 
   const navItems = [
+    { name: 'iOS recording methods', icon: '/icons/analytics-card-icon.svg', path: '/fov-trial' },
     {
       name: 'Dashboard',
       icon: '/icons/home-icon.svg',
@@ -34,6 +35,7 @@ const Sidebar = () => {
             return (
               <Link
                 key={item.path}
+                title={item.name}
                 href={item.path}
                 className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-colors duration-200 ${
                   isActive
