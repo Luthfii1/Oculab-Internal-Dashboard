@@ -80,4 +80,4 @@ MIT
 
 ## iOS recording methods
 
-Set `FOV_TRIAL_API_URL` to the backend used by the iOS app. Open **Dashboard → Manage iOS recording methods** and sign in as a facility admin. Enabling the facility trial offers two methods in the Oculab camera before recording. Full video uses the existing exam workflow. FOV on iPhone selects fields locally for a separate trial result. Disabling the switch blocks subsequent field uploads.
+Signed-in users choose Full video or FOV on iPhone before each recording in the Oculab iOS app. Field analysis shows a separate trial result.
